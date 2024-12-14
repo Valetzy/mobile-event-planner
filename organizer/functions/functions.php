@@ -34,8 +34,9 @@ function getSupplierById($conn, $supplier_id)
                             <input type="hidden" name="supplier_id" value="' . htmlspecialchars($supplier['supplier_id']) . '">
                             <input type="hidden" name="organizer_id" value="' . $id . '">
                             <button class="btn btn-danger m-3" type="submit">Cancel Request</button>
+                            <a class="btn btn-info m-3" href="view_supplier_details.php?id=' . htmlspecialchars($supplier['supplier_id']) . '">View Details</a>
                           </form>';
-                    echo '<a class="btn btn-info m-3" href="view_supplier_details.php">View Details</a>';
+                   
                 } elseif ($status === 'cancel') {
                     // Display request button
                     echo '<form action="functions/request.php" method="post">
@@ -43,16 +44,16 @@ function getSupplierById($conn, $supplier_id)
                             <input type="hidden" name="supplier_id" value="' . htmlspecialchars($supplier['supplier_id']) . '">
                             <input type="hidden" name="organizer_id" value="' . $id . '">
                             <button class="btn btn-primary m-3" type="submit">Request</button>
+                            <a class="btn btn-info m-3" href="view_supplier_details.php?id=' . htmlspecialchars($supplier['supplier_id']) . '">View Details</a>
                           </form>';
-                          echo '<a class="btn btn-info m-3" href="view_supplier_details.php">View Details</a>';
                 } elseif ($status === 'approved') {
                     // Display approved button
                     echo '<button class="btn btn-success m-3" type="button">Approved</button>';
-                    echo '<a class="btn btn-info m-3" href="view_supplier_details.php">View Details</a>';
+                    echo '<a class="btn btn-info m-3" href="view_supplier_details.php?id=' . htmlspecialchars($supplier['supplier_id']) . '">View Details</a>';
                 } elseif ($status === 'deny') {
                     // Display approved button
                     echo '<button class="btn btn-danger m-3" type="button">Denied</button>';
-                    echo '<a class="btn btn-info m-3" href="view_supplier_details.php">View Details</a>';
+                    echo '<a class="btn btn-info m-3" href="view_supplier_details.php?id=' . htmlspecialchars($supplier['supplier_id']) . '">View Details</a>';
                 } elseif ($status === ' ') {
                     // Display approved button
                     echo '<form action="functions/request.php" method="post">
@@ -60,8 +61,9 @@ function getSupplierById($conn, $supplier_id)
                             <input type="hidden" name="supplier_id" value="' . htmlspecialchars($supplier['supplier_id']) . '">
                             <input type="hidden" name="organizer_id" value="' . $id . '">
                             <button class="btn btn-primary m-3" type="submit">Request</button>
+                            <a class="btn btn-info m-3" href="view_supplier_details.php?id=' . htmlspecialchars($supplier['supplier_id']) . '">View Details</a>
                           </form>';
-                          echo '<a class="btn btn-info m-3" href="view_supplier_details.php">View Details</a>';
+                         
                 }
             } else {
                 // If no record found, display request button
@@ -70,15 +72,15 @@ function getSupplierById($conn, $supplier_id)
                         <input type="hidden" name="supplier_id" value="' . htmlspecialchars($supplier['supplier_id']) . '">
                         <input type="hidden" name="organizer_id" value="' . $id . '">
                         <button class="btn btn-primary m-3" type="submit">Request</button>
+                        <a class="btn btn-info m-3" href="view_supplier_details.php?id=' . htmlspecialchars($supplier['supplier_id']) . '">View Details</a>
                       </form>';
-                      echo '<a class="btn btn-info m-3" href="view_supplier_details.php">View Details</a>';
+                      
             }
 
             echo '</div></div>';
         }
     }
 }
-
 
 function displayProductsBySupplierId($conn, $supplier_id, $supplier_type)
 {

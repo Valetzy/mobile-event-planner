@@ -279,17 +279,6 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-12">
-                                            <div class="mb-3">
-                                                <label class="form-label">Decor Status <span
-                                                        class="text-red">*</span></label>
-                                                <select class="form-control" name="status" id="status">
-                                                    <option selected disabled>Choose a Status</option>
-                                                    <option value="Available">Available</option>
-                                                    <option value="Unavailable">Unavailable</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-12">
                                             <div class="mb-0">
                                                 <label class="form-label">Decor Description <span
                                                         class="text-red">*</span></label>
@@ -313,7 +302,7 @@
     </div>
 </div><!-- End Decor Information-->
 
-<!-- Decor venue -->
+<!-- venue -->
 <div class="modal fade" id="venue" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

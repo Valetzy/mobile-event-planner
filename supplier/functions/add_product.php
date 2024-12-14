@@ -163,7 +163,6 @@ if (isset($_SESSION['id'])) {
                             $product_category = $_POST['product_category'];
                             $decor_name = $_POST['decor_name'];
                             $decor_price = $_POST['decor_price'];
-                            $status = $_POST['status'];
                             $decor_description = $_POST['decor_description'];
 
                             // File upload handling
@@ -198,8 +197,8 @@ if (isset($_SESSION['id'])) {
                             if ($uploadOk == 1) {
                                 if (move_uploaded_file($_FILES['decor_image']['tmp_name'], $target_file)) {
                                     // Prepare and bind
-                                    $stmt = $conn->prepare("INSERT INTO decors (supplier_id, rental_retails, product_category, decor_name, decor_price, decor_image, status, decor_description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                                    $stmt->bind_param("isssssss", $id, $rental_retails, $product_category, $decor_name, $decor_price, $decor_image, $status, $decor_description);
+                                    $stmt = $conn->prepare("INSERT INTO decors (supplier_id, rental_retails, product_category, decor_name, decor_price, decor_image, decor_description) VALUES ( ?, ?, ?, ?, ?, ?, ?)");
+                                    $stmt->bind_param("issssss", $id, $rental_retails, $product_category, $decor_name, $decor_price, $decor_image,  $decor_description);
 
                                     if ($stmt->execute()) {
                                         echo "<script>alert('Decor added successfully'); window.location.href='../product_list.php';</script>";
@@ -264,11 +263,9 @@ if (isset($_SESSION['id'])) {
                                     $stmt->bind_param("isssss", $id, $venue_name, $venue_price, $venue_image, $status, $venue_description);
 
                                     if ($stmt->execute()) {
-
                                     } else {
                                         echo "<script>alert('Error adding Venue'); window.location.href='../product_list.php';</script>";
                                     }
-
                                 } else {
                                     echo "Sorry, there was an error uploading your file.";
                                 }
@@ -326,11 +323,9 @@ if (isset($_SESSION['id'])) {
                                     $stmt->bind_param("isssss", $id, $photo_video_name, $photo_video_price, $photo_video_image, $status, $photo_video_description);
 
                                     if ($stmt->execute()) {
-
                                     } else {
                                         echo "<script>alert('Error adding photo_video'); window.location.href='../product_list.php';</script>";
                                     }
-
                                 } else {
                                     echo "Sorry, there was an error uploading your file.";
                                 }
@@ -360,4 +355,3 @@ if (isset($_SESSION['id'])) {
 } else {
     echo "Session ID is not set.";
 }
-?>
