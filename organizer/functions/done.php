@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             }
 
                             if (!empty($uploaded_files)) {
-                                $alert_message .= " Files uploaded successfully: " . implode(", ", $uploaded_files);
+                                $alert_message .= " Files uploaded successfully";
                             }
                         } else {
                             $alert_message .= " No files uploaded.";

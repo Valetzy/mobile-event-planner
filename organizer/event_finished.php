@@ -103,6 +103,7 @@ include '../connection/conn.php';
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             $profile_image = $row['profile_pic']; // Replace with actual logic
                                             $event_type = $row['event_name'];
+                                            $status = "done";
                                            
                                             echo "
                                                     <tr>
@@ -112,7 +113,7 @@ include '../connection/conn.php';
                                                         <td>{$event_type}</td>
                                                         <td>{$row['date_created']}</td>
                                                         <td style=' white-space: nowrap;'>
-                                                            <button class='btn btn-primary' onclick='viewDetails({$row['id']}, \"" . addslashes($event_type) . "\")'>View Details</button>
+                                                           <a class='btn btn-primary' href='view_request.php?id={$row['id']}&eventType={$event_type}&status={$status}'done'>View Details</a>
                                                         </td>
                                                         
                                                     </tr>

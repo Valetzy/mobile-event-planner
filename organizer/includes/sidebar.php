@@ -10,7 +10,7 @@
    <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
 
     <li class="nav-item"> <a href="index.php" class="nav-link"> <i class="nav-icon bi bi-house"></i>
-      <p>dashboard</p>
+      <p>Organizer dashboard</p>
      </a> </li>
 
     <li class="nav-item menu"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-person"></i>
