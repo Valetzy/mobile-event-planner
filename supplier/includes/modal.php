@@ -279,6 +279,14 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-12">
+                                            <div class=" mb-3">
+                                                <label class="form-label">Stocks</label>
+                                                <div class="input-group">
+                                                    <input type="number" name="stocks" id="stocks" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-12">
                                             <div class="mb-0">
                                                 <label class="form-label">Decor Description <span
                                                         class="text-red">*</span></label>
@@ -317,7 +325,7 @@
                             <div class="card-border">
                                 <div class="card-border-body">
                                     <div class="row">
-                                        
+
                                         <div class="col-sm-6 col-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Venue Name <span
@@ -396,7 +404,7 @@
                             <div class="card-border">
                                 <div class="card-border-body">
                                     <div class="row">
-                                        
+
                                         <div class="col-sm-6 col-12">
                                             <div class="mb-3">
                                                 <label class="form-label">package Name <span
@@ -523,6 +531,28 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-sm-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Image <span
+                                                        class="text-red">*</span></label>
+                                                <input type="file" class="form-control" name="image"
+                                                    placeholder="Enter Number of Participants" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Status<span
+                                                        class="text-red">*</span></label>
+                                                <select class="form-control" name="status" required>
+                                                    <option value="" selected disabled>Select Status
+                                                    </option>
+                                                    <option value="available">Available</option>
+                                                    <option value="unavailable">Unavailable</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
                                         <div class="col-sm-12 col-12">
                                             <div style="max-height: 350px; overflow-y: auto;">
                                                 <table class="table table-bordered">
@@ -611,8 +641,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label">Dress Category <span
                                                         class="text-red">*</span></label>
-                                                <select class="form-control" name="dress_category"
-                                                    id="dress_category">
+                                                <select class="form-control" name="dress_category" id="dress_category">
                                                     <option value="Select Product Category">Select Dress Category
                                                     </option>
                                                     <option value="Casual Dresses">Casual Dresses</option>
@@ -766,6 +795,22 @@
                                                     placeholder="Enter Number of Participants" required>
                                             </div>
                                         </div>
+                                        <div class="col-sm-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label"> Stocks</label> <span
+                                                    class="text-red">*</span></label>
+                                                <input type="number" class="form-control" name="stocks"
+                                                    placeholder="Enter Number of Participants" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Image</label> <span class="text-red">*</span>
+                                                <input type="file" class="form-control" name="image" id="imageInput"
+                                                    accept="image/*" required>
+                                            </div>
+                                        </div>
+
 
                                         <div class="col-sm-12 col-12">
                                             <div style="max-height: 350px; overflow-y: auto;">

@@ -43,9 +43,9 @@ if (isset($_SESSION['id'])) {
                                     <th style="width: 10px">#</th>
                                     <th>Category</th>
                                     <th>Product Name</th>
-                                    <th>Catering Status</th>
                                     <th>Product Description</th>
                                     <th>Product Image</th>
+                                    <th>Catering Status</th>
                                 </tr>
                             </thead>
                             <tbody>';
@@ -55,9 +55,15 @@ if (isset($_SESSION['id'])) {
                             echo "<td>" . htmlspecialchars($products['product_id']) . "</td>";
                             echo "<td>" . htmlspecialchars($products['catering_category']) . "</td>";
                             echo "<td>" . htmlspecialchars($products['product_name']) . "</td>";
-                            echo "<td>" . htmlspecialchars($products['status']) . "</td>";
                             echo "<td>" . htmlspecialchars($products['product_descriptions']) . "</td>";
                             echo "<td><img src='../uploads/products/" . htmlspecialchars($products['product_image']) . "' alt='Product Image' style='width: 50px; height: 50px;'></td>";
+                            echo "<td>";
+                            if (htmlspecialchars($products['status']) === 'Available') {
+                                echo "<a href='functions/product_unavailable_status.php?id=" . htmlspecialchars($products['product_id']) ."' class='btn btn-primary'>Available</a>";
+                            } else {
+                                echo "<a href='functions/product_available_status.php?id=" . htmlspecialchars($products['product_id']) ."' class='btn btn-secondary'>Unavailable</a>";
+                            }
+                            echo "</td>";
                             echo "</tr>";
                         }
 
@@ -125,24 +131,33 @@ if (isset($_SESSION['id'])) {
                                             <th>Rental/Retail</th>
                                             <th>Decor Price</th>
                                             <th>Decor Description</th>
-                                            <th>Decor Image</th>
+                                            <th>Decor Stocks</th>
                                             <th>Decor Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>';
                         // Loop through each product and populate the table rows
+                        $index = 1;
                         while ($products = $products_result->fetch_assoc()) {
                             echo "<tr class='align-middle'>";
-                            echo "<td>" . htmlspecialchars($products['decor_id']) . "</td>";
+                            echo "<td>" . $index++ . "</td>";
                             echo "<td>" . htmlspecialchars($products['decor_name']) . "</td>";
                             echo "<td>" . htmlspecialchars($products['product_category']) . "</td>";
                             echo "<td>" . htmlspecialchars($products['rental_retails']) . "</td>";
                             echo "<td>" . htmlspecialchars($products['decor_price']) . "</td>";
                             echo "<td>" . htmlspecialchars($products['decor_description']) . "</td>";
                             echo "<td><img src='../uploads/products/" . htmlspecialchars($products['decor_image']) . "' alt='Product Image' style='width: 50px; height: 50px;'></td>";
-                            echo "<td>" . htmlspecialchars($products['status']) . "</td>";
+                            echo "<td>" . htmlspecialchars($products['stocks']) . "</td>";
+                            echo "<td>";
+                            if (htmlspecialchars($products['status']) === 'available') {
+                                echo "<a href='functions/unavailable_status.php?id=" . htmlspecialchars($products['decor_id']) ."' class='btn btn-primary'>Available</a>";
+                            } else {
+                                echo "<a href='functions/available_status.php?id=" . htmlspecialchars($products['decor_id']) ."' class='btn btn-secondary'>Unavailable</a>";
+                            }
+                            echo "</td>";
                             echo "</tr>";
                         }
+
 
                         echo '</tbody>
                                                 </table>';

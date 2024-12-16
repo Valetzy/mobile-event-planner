@@ -164,6 +164,7 @@ if (isset($_SESSION['id'])) {
                             $decor_name = $_POST['decor_name'];
                             $decor_price = $_POST['decor_price'];
                             $decor_description = $_POST['decor_description'];
+                            $stocks = $_POST['stocks'];
 
                             // File upload handling
                             $target_dir = "../../uploads/products/";
@@ -197,8 +198,8 @@ if (isset($_SESSION['id'])) {
                             if ($uploadOk == 1) {
                                 if (move_uploaded_file($_FILES['decor_image']['tmp_name'], $target_file)) {
                                     // Prepare and bind
-                                    $stmt = $conn->prepare("INSERT INTO decors (supplier_id, rental_retails, product_category, decor_name, decor_price, decor_image, decor_description) VALUES ( ?, ?, ?, ?, ?, ?, ?)");
-                                    $stmt->bind_param("issssss", $id, $rental_retails, $product_category, $decor_name, $decor_price, $decor_image,  $decor_description);
+                                    $stmt = $conn->prepare("INSERT INTO decors (supplier_id, rental_retails, product_category, decor_name, decor_price, decor_image, decor_description, stocks) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)");
+                                    $stmt->bind_param("issssssi", $id, $rental_retails, $product_category, $decor_name, $decor_price, $decor_image,  $decor_description, $stocks);
 
                                     if ($stmt->execute()) {
                                         echo "<script>alert('Decor added successfully'); window.location.href='../product_list.php';</script>";

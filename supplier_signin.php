@@ -56,6 +56,7 @@
               <option value="catering">Catering</option>
               <option value="dress">Dress</option>
               <option value="decor">Decor</option>
+              <option value="venue">Venue</option>
               <option value="photographer_and_videographer">Photographer and Videographer</option>
             </select>
           </div>

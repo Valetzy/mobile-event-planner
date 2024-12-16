@@ -46,17 +46,7 @@ include '../connection/conn.php';
 
                         <div class="card mb-4">
                             <div class="card-header d-flex justify-content-end">
-                                <div class="col-sm-4" style="margin-right: 29px;" >
-                                    <select class="form-control" name="product_category">
-                                        <option value=" " selected disabled>Choose a Catering Category</option>
-                                        <option value="Appetizers">Appetizers</option>
-                                        <option value="Salads">Salads</option>
-                                        <option value="Beverages">Beverages</option>
-                                        <option value="Desserts">Desserts</option>
-                                        <option value="Main Courses">Main Courses</option>
-                                        <option value="Side Dishes">Side Dishes</option>
-                                    </select>
-                                </div>
+                                
                                 <?php generateAddPackageButton($id,$conn); ?>
                                 <?php include 'includes/modal.php'; ?>
                             </div>

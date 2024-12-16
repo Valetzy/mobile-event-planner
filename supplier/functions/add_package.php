@@ -41,7 +41,29 @@ if (isset($_SESSION['id'])) {
                             $catering_category = $_POST['catering_category'];
                             $catering_price = $_POST['catering_price'];
                             $catering_participants = $_POST['catering_participants'];
+                            $status = $_POST['status'];
                             $selected_products = isset($_POST['selected_products']) ? $_POST['selected_products'] : [];
+
+                            // Handle image upload
+                            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                                $image_dir = "package_uploads/"; // Directory where images will be saved
+                                $image_name = basename($_FILES['image']['name']);
+                                $image_path = $image_dir . $image_name;
+
+                                // Ensure the directory exists
+                                if (!is_dir($image_dir)) {
+                                    mkdir($image_dir, 0755, true);
+                                }
+
+                                // Move the uploaded file to the directory
+                                if (!move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+                                    echo "Failed to upload the image.";
+                                    exit;
+                                }
+                            } else {
+                                echo "Please upload a valid image.";
+                                exit;
+                            }
 
                             // Validate required fields
                             if (empty($catering_name) || empty($catering_price) || empty($catering_participants)) {
@@ -63,12 +85,15 @@ if (isset($_SESSION['id'])) {
                             $result = $stmt_check->get_result();
 
                             if ($result->num_rows > 0) {
-                                echo "A package with this name already exists. Please choose a different name.";
+                                echo "<script type='text/javascript'>
+                                        alert('A package with this name already exists. Please choose a different name.');
+                                        window.history.back();
+                                    </script>";
                             } else {
                                 // Prepare to insert the package information
-                                $query = "INSERT INTO package_catering (supplier_id, catering_name, catering_price, catering_participants, catering_category) VALUES (?, ?, ?, ?, ?)";
+                                $query = "INSERT INTO package_catering (supplier_id, catering_name, catering_price, catering_participants, catering_category, image, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
                                 $stmt = $conn->prepare($query);
-                                $stmt->bind_param("isdis", $id, $catering_name, $catering_price, $catering_participants, $catering_category);
+                                $stmt->bind_param("isdisss", $id, $catering_name, $catering_price, $catering_participants, $catering_category, $image_path, $status);
 
                                 if ($stmt->execute()) {
                                     // Get the last inserted package ID
@@ -183,10 +208,32 @@ if (isset($_SESSION['id'])) {
                             $catering_category = $_POST['decor_category'];
                             $catering_price = $_POST['decor_price'];
                             $catering_participants = $_POST['decor_participants'];
+                            $stocks = $_POST['stocks'];
                             $selected_products = isset($_POST['selected_decor']) ? $_POST['selected_decor'] : [];
 
+                            // Handle image upload
+                            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                                $image_dir = "package_uploads/"; // Directory where images will be saved
+                                $image_name = basename($_FILES['image']['name']);
+                                $image_path = $image_dir . $image_name;
+
+                                // Ensure the directory exists
+                                if (!is_dir($image_dir)) {
+                                    mkdir($image_dir, 0755, true);
+                                }
+
+                                // Move the uploaded file to the directory
+                                if (!move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+                                    echo "Failed to upload the image.";
+                                    exit;
+                                }
+                            } else {
+                                echo "Please upload a valid image.";
+                                exit;
+                            }
+
                             // Validate required fields
-                            if (empty($catering_name) || empty($catering_price) || empty($catering_participants)) {
+                            if (empty($catering_name) || empty($catering_price) || empty($catering_participants) || empty($stocks)) {
                                 echo "Please fill in all required fields.";
                                 exit;
                             }
@@ -208,16 +255,16 @@ if (isset($_SESSION['id'])) {
                                 echo "A package with this name already exists. Please choose a different name.";
                             } else {
                                 // Prepare to insert the package information
-                                $query = "INSERT INTO package_decor (supplier_id, decor_name, decor_price, decor_participants, decor_category) VALUES (?, ?, ?, ?, ?)";
+                                $query = "INSERT INTO package_decor (supplier_id, decor_name, decor_price, decor_participants, decor_category, image, stocks) VALUES (?, ?, ?, ?, ?, ?, ?)";
                                 $stmt = $conn->prepare($query);
-                                $stmt->bind_param("isdis", $id, $catering_name, $catering_price, $catering_participants, $catering_category);
+                                $stmt->bind_param("isdisss", $id, $catering_name, $catering_price, $catering_participants, $catering_category, $image_path, $stocks);
 
                                 if ($stmt->execute()) {
                                     // Get the last inserted package ID
                                     $package_id = $stmt->insert_id;
 
                                     // Insert selected products into the package_products table
-                                    $query_product = "INSERT INTO package_products_1 ( supplier_id, package_id, product_id) VALUES (?, ?, ?)";
+                                    $query_product = "INSERT INTO package_products_1 (supplier_id, package_id, product_id) VALUES (?, ?, ?)";
                                     $stmt_product = $conn->prepare($query_product);
 
                                     foreach ($selected_products as $product_id) {
@@ -232,7 +279,8 @@ if (isset($_SESSION['id'])) {
                                 }
 
                                 // Close the statements
-
+                                $stmt->close();
+                                $stmt_product->close();
                             }
 
                             // Close the check statement and the connection
@@ -241,6 +289,7 @@ if (isset($_SESSION['id'])) {
                         } else {
                             echo "Invalid request.";
                         }
+
 
 
                         break;

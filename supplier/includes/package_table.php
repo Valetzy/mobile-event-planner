@@ -48,21 +48,30 @@ if (isset($_SESSION['id'])) {
                                 $catering_name = htmlspecialchars($row['catering_name']);
                                 $catering_category = htmlspecialchars($row['catering_category']);
                                 $catering_price = htmlspecialchars($row['catering_price']);
-                                $catering_participants = htmlspecialchars($row['catering_participants']);
+                                $catering_participants = htmlspecialchars(string: $row['catering_participants']);
                                 $package_id = htmlspecialchars($row['package_id']);
+                                $image = htmlspecialchars($row['image']);
 
 
                                 // Generate the card HTML
                                 echo '<div class="col-lg-3 col-6 mb-3">
                                                                 <div class="card">
-                                                                    <img src="../1332803.png" class="card-img-top" alt="Event Image" style="width: 100%; height: 250px; object-fit: cover;">
+                                                                    <img src="functions/' . $image . '" class="card-img-top" alt="' . $image . '" style="width: 100%; height: 250px; object-fit: cover;">
                                                                     <div class="card-body d-flex flex-column justify-content-between" style="height: 100%;">
                                                                         <h2 class="text-center"> ' . $catering_name . '</h2>
                                                                         <h3 class="text-center"> ' . $catering_category . '</h3>
                                                                         <p class="text-center"> Price: ₱' . $catering_price . '</p>
                                                                         <p class="text-center"> Participants: ' . $catering_participants . '</p>
-                                                                        <button data-bs-toggle="modal" data-bs-target="#view_package_' . $package_id . '" class="btn btn-primary">View Packages</button>
-                                                                    </div>
+                                                                        <button data-bs-toggle="modal" data-bs-target="#view_package_' . $package_id . '" class="btn btn-primary mb-3">View Packages</button>';
+
+                                                                        if (htmlspecialchars($row['status']) === 'available') {
+                                                                            echo "<a href='functions/catering_unavailable_status.php?id=" . $package_id ."' class='btn btn-primary'>Available</a>";
+                                                                        } else {
+                                                                            echo "<a href='functions/catering_available_status.php?id=" . $package_id ."' class='btn btn-secondary'>Unavailable</a>";
+                                                                        }
+                                                                       
+
+                                                                    echo '</div>
                                                                 </div>
                                                             </div>';
 
@@ -225,17 +234,20 @@ if (isset($_SESSION['id'])) {
                                 $decor_price = htmlspecialchars($row['decor_price']);
                                 $decor_participants = htmlspecialchars($row['decor_participants']);
                                 $package_id = htmlspecialchars($row['package_id']);
+                                $image = htmlspecialchars($row['image']);
+                                $stocks = htmlspecialchars($row['stocks']);
 
 
                                 // Generate the card HTML
                                 echo '<div class="col-lg-3 col-6 mb-3">
                                                                 <div class="card">
-                                                                    <img src="../1332803.png" class="card-img-top" alt="Event Image" style="width: 100%; height: 250px; object-fit: cover;">
+                                                                    <img src="functions/' . $image . '" class="card-img-top" alt="' . $image . '" style="width: 100%; height: 250px; object-fit: cover;">
                                                                     <div class="card-body d-flex flex-column justify-content-between" style="height: 100%;">
                                                                         <h2 class="text-center"> ' . $decor_name . '</h2>
                                                                         <h3 class="text-center"> ' . $decor_category . '</h3>
                                                                         <p class="text-center"> Price: ₱' . $decor_price . '</p>
-                                                                        <p class="text-center"> Participants: ' . $decor_participants . '</p>
+                                                                        <p class="text-center"> Participants: ' . $decor_participants . '</p>   
+                                                                        <p class="text-center"> Stocks : ' . $stocks . '</p>   
                                                                         <button data-bs-toggle="modal" data-bs-target="#view_package_' . $package_id . '" class="btn btn-primary">View Packages</button>
                                                                     </div>
                                                                 </div>
