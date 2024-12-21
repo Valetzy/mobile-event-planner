@@ -131,6 +131,7 @@ if (isset($_SESSION['id'])) {
                                             <th>Rental/Retail</th>
                                             <th>Decor Price</th>
                                             <th>Decor Description</th>
+                                            <th>Decor Image</th>
                                             <th>Decor Stocks</th>
                                             <th>Decor Status</th>
                                         </tr>
