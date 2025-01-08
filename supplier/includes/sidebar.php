@@ -107,7 +107,9 @@
           </li>
         <?php endif; ?>
 
-
+        <li class="nav-item"> <a href="inventory.php" class="nav-link"> <i class="nav-icon bi bi-box"></i>
+            <p>Inventory</p>
+          </a> </li>
 
       </ul> <!--end::Sidebar Menu-->
     </nav>

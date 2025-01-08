@@ -38,19 +38,14 @@
         </a> </div>
       <div class="card-body register-card-body">
         <p class="register-box-msg">Register a new membership</p>
+        <h1 class="d-flex justify-content-center align align-items-center" >Organizer</h1>
 
-        <center>
-          <a href="client_signin.php" class="btn btn-primary mb-2">Client</a>
-          <a href="#" class="btn btn-secondary mb-2">Organizer</a>
-          <a href="supplier_signin.php" class="btn btn-primary mb-2">Supplier</a>
-        </center>
-
-        <form action="registration_functions/register_user.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form action="registration_functions/register_organizer.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
           <input type="hidden" name="user_type" id="user_type" value="organizer">
 
           <div class="input-group mb-1">
             <div class="form-floating">
-              <input id="fullName" name="name" type="text" class="form-control" placeholder="Full Name" required>
+              <input id="fullName" name="name" type="text" class="form-control" placeholder="Full Name" value="<?php echo $_GET['firstname'] ?> <?php echo $_GET['middlename'] ?> <?php echo $_GET['lastname'] ?>" required>
               <label for="fullName">Full Name</label>
             </div>
           </div>
@@ -111,7 +106,7 @@
 
           <div class="input-group mb-1">
             <div class="form-floating">
-              <input id="email" name="email" type="email" class="form-control" placeholder="Email" required>
+              <input id="email" name="email" type="email" class="form-control" placeholder="Email" value="<?php echo $_GET['email'] ?>" required>
               <label for="email">Email</label>
             </div>
           </div>
@@ -152,6 +147,8 @@
             <input class="form-check-input" type="checkbox" name="terms" id="terms" required>
             <label class="form-check-label" for="terms">I agree to the <a href="#">terms</a></label>
           </div>
+
+          <input type="hidden" name="user_plan_id" value="<?php echo $_GET['user_plan_id'] ?>" >
 
           <button type="submit" class="btn btn-primary">Sign Up</button>
         </form>

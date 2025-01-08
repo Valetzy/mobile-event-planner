@@ -30,14 +30,33 @@
         </div>
       </li> <!--end::Notifications Dropdown Menu--> <!--begin::User Menu Dropdown-->
       <li class="nav-item dropdown user-menu"> <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-          <img src="<?php echo htmlspecialchars($_SESSION['profile'])?> " class="user-image rounded-circle shadow" alt="User Image">
+          <img src="<?php echo htmlspecialchars($_SESSION['profile']) ?> " class="user-image rounded-circle shadow"
+            alt="User Image">
           <span class="d-none d-md-inline"><?php echo htmlspecialchars($_SESSION['name']) ?></span> </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end"> <!--begin::User Image-->
-          <li class="user-header text-bg-primary"> <img src="<?php echo htmlspecialchars($_SESSION['profile'])?> "
+          <li class="user-header text-bg-primary"> <img src="<?php echo htmlspecialchars($_SESSION['profile']) ?> "
               class="rounded-circle shadow" alt="User Image">
             <p>
-              <?php echo htmlspecialchars($_SESSION['name']) ?> - <?php echo htmlspecialchars($_SESSION['user_type']) ?> 
+              <?php echo htmlspecialchars($_SESSION['name']) ?> - <?php echo htmlspecialchars($_SESSION['user_type']) ?>
             </p>
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                fetch('get_user_data.php')
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.error) {
+                      document.getElementById('user-plan-info').innerText = data.error;
+                    } else {
+                      const planInfo = `Plan Type: ${data.plan_type} \n Status: ${data.status}`;
+                      document.getElementById('user-plan-info').innerText = planInfo;
+                    }
+                  })
+                  .catch(error => console.error('Error fetching user data:', error));
+              });
+            </script>
+
+            <p id="user-plan-info">Loading...</p>
+
           </li> <!--end::User Image--> <!--begin::Menu Body-->
           <!--begin::Menu Footer-->
           <li class="user-footer"> <a href="../registration_functions/signout.php"
