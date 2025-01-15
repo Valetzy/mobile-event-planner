@@ -8,7 +8,7 @@ if (!isset($_SESSION['email'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style=" background-color: #14213d;">
 
 <?php include 'includes/head.php'; ?>
 
@@ -93,3 +93,6 @@ if (!isset($_SESSION['email'])) {
         <script src="js/main.js"></script>
     </body>
 </html>
+<body>
+    
+</body>

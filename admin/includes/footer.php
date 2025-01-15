@@ -1,13 +1,4 @@
-<!--begin::Footer-->
-<footer class="app-footer"> <!--begin::To the end-->
- <div class="float-end d-none d-sm-inline">Anything you want</div> <!--end::To the end--> <!--begin::Copyright-->
- <strong>
-  Copyright &copy; 2014-2024&nbsp;
-  <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
- </strong>
- All rights reserved.
- <!--end::Copyright-->
-</footer> <!--end::Footer-->
+
 <!-- DataTables  & Plugins -->
 <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

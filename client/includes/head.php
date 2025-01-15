@@ -11,9 +11,7 @@
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
                             <a href="index.php" class="nav-item nav-link">Home</a>
-                            <a href="#" class="nav-item nav-link">About</a>
-                            <a href="#" class="nav-item nav-link">Contact</a>
-                            <a href="#" class="nav-item nav-link">Services</a>
+                            <a href="about.php" class="nav-item nav-link">About</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Request</a>
                                 <div class="dropdown-menu bg-light">
@@ -27,7 +25,6 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><?php echo $_SESSION['email'] ?></a>
                                 <div class="dropdown-menu bg-light">
-                                    <a href="book.html" class="dropdown-item">Profile</a>
                                     <a href="../registration_functions/signout.php" class="dropdown-item">Sign Out</a>
                                     <!-- <a href="team.html" class="dropdown-item">Our Team</a>
                                     <a href="testimonial.html" class="dropdown-item">Testimonial</a>

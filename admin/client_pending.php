@@ -79,7 +79,8 @@ if (!isset($_SESSION['email'])) {
                                     AND user_type = 'client' 
                                     AND (full_name LIKE '%$search_query%' 
                                         OR email LIKE '%$search_query%' 
-                                        OR address LIKE '%$search_query%') 
+                                        OR address LIKE '%$search_query%')
+                                         ORDER BY date_created DESC 
                                     LIMIT $records_per_page OFFSET $offset";
                                 $result = mysqli_query($conn, $query);
 

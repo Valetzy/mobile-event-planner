@@ -304,3 +304,105 @@ function displayEventCards($conn)
         echo '<p>No events found.</p>';
     }
 }
+
+function displayPackageBySupplierId($conn, $supplier_id, $supplier_type)
+{
+
+    switch ($supplier_type) {
+        case 'catering':
+
+            // Sanitize and prepare the query
+            $supplier_id = intval(value: $supplier_id); // Ensure the ID is an integer to prevent SQL injection
+            $query = "SELECT * FROM package_catering WHERE supplier_id = $supplier_id";
+            $result = mysqli_query($conn, $query);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+                while ($product = mysqli_fetch_assoc($result)) {
+                    // Assuming the products table has 'name' and 'image_path' columns
+                    $productName = htmlspecialchars($product['catering_name']);
+                    $imagePath = !empty($product['image']) ? htmlspecialchars($product['image']) : '';
+
+                    echo '<div class="col-lg-3 col-6 mb-3 ">';
+                    echo '    <div class="card">';
+                    echo '        <img src="../supplier/functions/' . $imagePath . '" class="card-img-top" alt="' . $imagePath . '" style="width: 100%; height: 250px; object-fit: cover;">';
+                    echo '        <div class="card-body d-flex justify-content-center">';
+                    echo '            <h5 class="card-title"><strong>' . $productName . '</strong></h5>';
+                    echo '        </div>';
+                    echo '    </div>';
+                    echo '</div>';
+
+                }
+            } else {
+                echo '<div class="col-12">';
+                echo '    <p>No products found for this supplier.</p>';
+                echo '</div>';
+            }
+
+            break;
+
+        case 'decor':
+
+            // Sanitize and prepare the query
+            $supplier_id = intval($supplier_id); // Ensure the ID is an integer to prevent SQL injection
+            $query = "SELECT * FROM package_decor WHERE supplier_id = $supplier_id";
+            $result = mysqli_query($conn, $query);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+                while ($product = mysqli_fetch_assoc($result)) {
+                    // Assuming the products table has 'name' and 'image_path' columns
+                    $productName = htmlspecialchars($product['decor_name']);
+                    $imagePath = !empty($product['image']) ? htmlspecialchars($product['image']) : '';
+
+                    echo '<div class="col-lg-3 col-6 mb-3 ">';
+                    echo '    <div class="card">';
+                    echo '        <img src="../supplier/functions/' . $imagePath . '" class="card-img-top" alt="' . $imagePath . '" style="width: 100%; height: 250px; object-fit: cover;">';
+                    echo '        <div class="card-body d-flex justify-content-center">';
+                    echo '            <h5 class="card-title"><strong>' . $productName . '</strong></h5>';
+                    echo '        </div>';
+                    echo '    </div>';
+                    echo '</div>';
+
+                }
+            } else {
+                echo '<div class="col-12">';
+                echo '    <p>No products found for this supplier.</p>';
+                echo '</div>';
+            }
+
+            break;
+
+        case 'dress':
+
+            // Sanitize and prepare the query
+            $supplier_id = intval($supplier_id); // Ensure the ID is an integer to prevent SQL injection
+            $query = "SELECT * FROM package_dress WHERE supplier_id = $supplier_id";
+            $result = mysqli_query($conn, $query);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+                while ($product = mysqli_fetch_assoc($result)) {
+                    // Assuming the products table has 'name' and 'image_path' columns
+                    $productName = htmlspecialchars($product['dress_name']);
+                    $imagePath = !empty($product['image']) ? htmlspecialchars($product['image']) : '';
+
+                    echo '<div class="col-lg-3 col-6 mb-3 ">';
+                    echo '    <div class="card">';
+                    echo '        <img src="../supplier/functions/' . $imagePath . '" class="card-img-top" alt="' . $imagePath . '" style="width: 100%; height: 250px; object-fit: cover;">';
+                    echo '        <div class="card-body d-flex justify-content-center">';
+                    echo '            <h5 class="card-title"><strong>' . $productName . '</strong></h5>';
+                    echo '        </div>';
+                    echo '    </div>';
+                    echo '</div>';
+
+                }
+            } else {
+                echo '<div class="col-12">';
+                echo '    <p>No products found for this supplier.</p>';
+                echo '</div>';
+            }
+
+            break;
+
+    }
+
+
+}

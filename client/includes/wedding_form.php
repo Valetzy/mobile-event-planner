@@ -1,6 +1,11 @@
 <!-- wedding form -->
 
 <div class="container">
+    <div style="margin-top: -10px; margin-bottom: 20px;">
+        <a href="javascript:history.back()">
+            <img src="back.png" alt="Back Button" width="30px" height="30px">
+        </a>
+    </div>
     <div class="row g-0">
         <div class="col-1">
             <div class="img-fluid h-100 w-100 rounded-start"
@@ -261,16 +266,18 @@
                         </div>
 
 
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill"
-                                fdprocessedid="o2nolj">Submit Now</button>
+                        <div class="col-6 text-center">
+                            <a href="javascript:history.back()" class="btn btn-secondary py-3 rounded-pill">Cancel</a>
+                        </div>
+                        <div class="col-6 text-center">
+                            <button type="submit" class="btn btn-primary py-3 rounded-pill">Submit Now</button>
                         </div>
 
-                        <input type="hidden" name="event_id" value="<?php echo $_GET['event_id'] ?>" >
-                        <input type="hidden" name="event_type" value="<?php echo $_GET['event_type'] ?>" >
-                        <input type="hidden" name="organizer_id" value="<?php echo $_GET['organizer_id'] ?>" >
-                        <input type="hidden" name="date_start" value="<?php echo $_GET['date_start'] ?>" >
-                        <input type="hidden" name="date_end" value="<?php echo $_GET['date_end'] ?>" >
+                        <input type="hidden" name="event_id" value="<?php echo $_GET['event_id'] ?>">
+                        <input type="hidden" name="event_type" value="<?php echo $_GET['event_type'] ?>">
+                        <input type="hidden" name="organizer_id" value="<?php echo $_GET['organizer_id'] ?>">
+                        <input type="hidden" name="date_start" value="<?php echo $_GET['date_start'] ?>">
+                        <input type="hidden" name="date_end" value="<?php echo $_GET['date_end'] ?>">
                         <input type="hidden" name="client_id" value="<?php echo $_SESSION['id'] ?>">
                     </div>
                 </form>

@@ -101,6 +101,16 @@ include '../connection/conn.php';
                                             <!--begin::Col-->
                                             <div class="col-md-12"><strong>Email:</strong> <?php echo htmlspecialchars($supplier['email'] ?? 'N/A'); ?></div>
                                             <!--end::Col-->
+                                            <div class="col-md-12">
+                                                <strong>Facebook:</strong>
+                                                <?php
+                                                if (empty($supplier['facebook'])) {
+                                                    echo 'N/A';
+                                                } else {
+                                                    echo '<a href="' . htmlspecialchars($supplier['facebook']) . '" target="_blank">' . htmlspecialchars($supplier['facebook']) . '</a>';
+                                                }
+                                                ?>
+                                            </div>
                                         </div>
                                     </div>
                                     <!--end::Body-->

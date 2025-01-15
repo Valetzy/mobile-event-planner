@@ -16,7 +16,7 @@ include '../connection/conn.php';
 
 <?php include 'includes/head.php'; ?>
 
-<body>
+<body style=" background-color: #14213d;">
 
     <!-- Spinner Start -->
     <div id="spinner"

@@ -28,6 +28,12 @@ include '../connection/conn.php'; ?>
     <div class="container-fluid blog py-6">
         <div class="container">
 
+            <div style="margin-top: -80px; margin-bottom: 20px;">
+                <a href="javascript:history.back()">
+                    <img src="back.png" alt="Back Button" width="30px" height="30px">
+                </a>
+            </div>
+
             <div class="text-center wow bounceInUp" data-wow-delay="0.1s">
                 <div>
                     <h1 class="display-5 mb-5"><?= $_GET['event_name'] ?> Event Packages</h1>
@@ -68,7 +74,7 @@ include '../connection/conn.php'; ?>
                         $event_package_name = $row['event_package_name'];
                         $event_id = $row['event_id'];
 
-                ?>
+                        ?>
 
 
                         <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.1s">
@@ -84,7 +90,8 @@ include '../connection/conn.php'; ?>
                                             <p class="fw-bold mb-0"><?= $event_package_name ?></p>
                                         </div>
                                     </div>
-                                    <a href="client_form.php?event_id=<?php echo $event_id ?>&event_type=<?php echo $_GET['eventtype_id'] ?>&organizer_id=<?php echo $_GET['user_id'] ?>&date_start=<?php echo $_GET['date_start'] ?>&date_end=<?php echo $_GET['date_end'] ?>" class="h6 lh-base my-auto h-100 p-3">
+                                    <a href="client_form.php?event_id=<?php echo $event_id ?>&event_type=<?php echo $_GET['eventtype_id'] ?>&organizer_id=<?php echo $_GET['user_id'] ?>&date_start=<?php echo $_GET['date_start'] ?>&date_end=<?php echo $_GET['date_end'] ?>"
+                                        class="h6 lh-base my-auto h-100 p-3">
                                         Theme: <span style="color: #d4a762;"> <?= $theme ?></span><br>
                                         Participants:<span style="color: #d4a762;"><?= $participants ?></span><br>
                                         Price: <span style="color: #d4a762;"><?= $price ?></span>
@@ -93,7 +100,7 @@ include '../connection/conn.php'; ?>
                             </div>
                         </div>
 
-                <?php
+                        <?php
                     }
                 } else {
                     echo 'No events found.';
@@ -126,7 +133,8 @@ include '../connection/conn.php'; ?>
                                                 <input type="hidden" name="client_id" value="<?= $_SESSION['id'] ?>">
                                                 <input type="hidden" name="event_type"
                                                     value="<?= $_GET['eventtype_id'] ?>">
-                                                <input type="hidden" name="date_start" value="<?= $_GET['date_start'] ?>">
+                                                <input type="hidden" name="date_start"
+                                                    value="<?= $_GET['date_start'] ?>">
                                                 <input type="hidden" name="date_end" value="<?= $_GET['date_end'] ?>">
 
                                                 <div class="col-sm-6 col-12">
@@ -216,7 +224,7 @@ include '../connection/conn.php'; ?>
                                                                                 alt="Product image"
                                                                                 style='width: 100px; height: 100px;'></td>
                                                                     </tr>
-                                                            <?php }
+                                                                <?php }
                                                             }
                                                             ?>
                                                         </tbody>

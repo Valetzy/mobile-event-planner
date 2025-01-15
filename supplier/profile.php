@@ -49,7 +49,7 @@ include '../connection/conn.php';
 
                             <?php
                             // Start the session
-
+                            
 
                             // Include the database connection file
                             include '../connection/conn.php';
@@ -80,25 +80,74 @@ include '../connection/conn.php';
                                     <!--begin::Body-->
                                     <div class="card-body">
                                         <div class="d-flex justify-content-center mb-5">
-                                            <img class="user-image shadow rounded-circle" width="200" height="200" style="object-fit: cover;"
-                                                src="../uploads/suppliers/<?php echo htmlspecialchars($supplier['business_pic'] ?? 'default.jpg'); ?>" alt="">
+                                            <img class="user-image shadow rounded-circle" width="200" height="200"
+                                                style="object-fit: cover;"
+                                                src="../uploads/suppliers/<?php echo htmlspecialchars($supplier['business_pic'] ?? 'default.jpg'); ?>"
+                                                alt="">
                                         </div>
                                         <div class="row">
                                             <!--begin::Col-->
-                                            <div class="col-md-12"><strong>Business Name:</strong> <?php echo htmlspecialchars($supplier['business_name'] ?? 'N/A'); ?></div>
+                                            <div class="col-md-12"><strong>Business Name:</strong>
+                                                <?php echo htmlspecialchars($supplier['business_name'] ?? 'N/A'); ?>
+                                            </div>
                                             <!--end::Col-->
                                             <!--begin::Col-->
-                                            <div class="col-md-12"><strong>Supplier Type:</strong> <?php echo htmlspecialchars($supplier['supplier_type'] ?? 'N/A'); ?></div>
+                                            <div class="col-md-12"><strong>Supplier Type:</strong>
+                                                <?php echo htmlspecialchars($supplier['supplier_type'] ?? 'N/A'); ?>
+                                            </div>
                                             <!--end::Col-->
                                             <!--begin::Col-->
-                                            <div class="col-md-12"><strong>Address:</strong> <?php echo htmlspecialchars($supplier['address'] ?? 'N/A'); ?></div>
+                                            <div class="col-md-12"><strong>Address:</strong>
+                                                <?php echo htmlspecialchars($supplier['address'] ?? 'N/A'); ?></div>
                                             <!--end::Col-->
                                             <!--begin::Col-->
-                                            <div class="col-md-12"><strong>Contact:</strong> <?php echo htmlspecialchars($supplier['contact'] ?? 'N/A'); ?></div>
+                                            <div class="col-md-12"><strong>Contact:</strong>
+                                                <?php echo htmlspecialchars($supplier['contact'] ?? 'N/A'); ?></div>
                                             <!--end::Col-->
                                             <!--begin::Col-->
-                                            <div class="col-md-12"><strong>Email:</strong> <?php echo htmlspecialchars($supplier['email'] ?? 'N/A'); ?></div>
+                                            <div class="col-md-12"><strong>Email:</strong>
+                                                <?php echo htmlspecialchars($supplier['email'] ?? 'N/A'); ?></div>
                                             <!--end::Col-->
+                                            <div class="col-md-12">
+                                                <strong>Facebook:</strong>
+                                                <?php
+                                                if (empty($supplier['facebook'])) {
+                                                    echo '<button class="btn btn-primary" onclick="addFacebookLink()">Add Facebook Link</button>';
+                                                } else {
+                                                    echo '<a href="' . htmlspecialchars($supplier['facebook']) . '" target="_blank">' . htmlspecialchars($supplier['facebook']) . '</a>';
+                                                }
+                                                ?>
+                                            </div>
+
+                                            <script>
+                                                function addFacebookLink() {
+                                                    const link = prompt("Please enter the Facebook link:");
+                                                    if (link) {
+                                                        // Send the link to the server using fetch API
+                                                        fetch("save_facebook.php", {
+                                                            method: "POST",
+                                                            headers: {
+                                                                "Content-Type": "application/x-www-form-urlencoded"
+                                                            },
+                                                            body: "facebook=" + encodeURIComponent(link)
+                                                        })
+                                                            .then(response => response.json())
+                                                            .then(data => {
+                                                                if (data.success) {
+                                                                    alert("Facebook link saved successfully!");
+                                                                    location.reload(); // Reload to reflect the changes
+                                                                } else {
+                                                                    alert("Error saving the Facebook link: " + data.message);
+                                                                }
+                                                            })
+                                                            .catch(error => {
+                                                                console.error("Error:", error);
+                                                                alert("An error occurred while saving the Facebook link.");
+                                                            });
+                                                    }
+                                                }
+                                            </script>
+
                                         </div>
                                     </div>
                                     <!--end::Body-->
@@ -130,12 +179,15 @@ include '../connection/conn.php';
                                 <div class="card-header">
                                     <div class="card-title">Feedbacks</div>
                                 </div> <!--end::Header--> <!--begin::Form-->
-                                <form id="uploadForm" method="post" action="upload_pic_feedback.php" enctype="multipart/form-data">
+                                <form id="uploadForm" method="post" action="upload_pic_feedback.php"
+                                    enctype="multipart/form-data">
                                     <!--begin::Body-->
                                     <div class="card-body">
                                         <div class="d-flex justify-content-center mt-3 mb-5">
                                             <label for="fileUpload" class="btn btn-primary">Upload Picture</label>
-                                            <input type="file" id="fileUpload" name="uploaded_picture[]" accept="image/*" multiple style="display: none;" onchange="this.form.submit();">
+                                            <input type="file" id="fileUpload" name="uploaded_picture[]"
+                                                accept="image/*" multiple style="display: none;"
+                                                onchange="this.form.submit();">
                                         </div>
 
                                         <div style="overflow: auto; height: 500px;">

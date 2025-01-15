@@ -50,14 +50,15 @@ if (!isset($_SESSION['email'])) {
                             <div class="card-header ">
                                 <h3 class="card-title">LIST</h3>
                                 <input style="float: right;" type="text" name="search-bar" id="search-bar"
-                                    placeholder="Search" value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                                    placeholder="Search"
+                                    value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                             </div>
                             <div class="card-body">
                                 <?php
                                 include '../connection/conn.php';
 
                                 $records_per_page = 10;
-                                $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                                $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
                                 $search_query = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
                                 $offset = ($current_page - 1) * $records_per_page;
 
@@ -80,7 +81,9 @@ if (!isset($_SESSION['email'])) {
                                     AND (full_name LIKE '%$search_query%' 
                                         OR email LIKE '%$search_query%' 
                                         OR address LIKE '%$search_query%') 
+                                    ORDER BY date_created DESC 
                                     LIMIT $records_per_page OFFSET $offset";
+
                                 $result = mysqli_query($conn, $query);
 
                                 if (mysqli_num_rows($result) > 0) {
@@ -102,23 +105,24 @@ if (!isset($_SESSION['email'])) {
                                     $counter = $offset + 1;
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo '<tr class="align-middle">
-                                            <td>' . $counter . '</td>
-                                            <td>' . htmlspecialchars($row['full_name']) . '</td>
-                                            <td>' . htmlspecialchars($row['birthday']) . '</td>
-                                            <td>' . htmlspecialchars($row['gender']) . '</td>
-                                            <td>' . htmlspecialchars($row['address']) . '</td>
-                                            <td>' . htmlspecialchars($row['email']) . '</td>
-                                            <td><img src="../uploads/' . htmlspecialchars($row['profile_pic']) . '" alt="Profile Pic" class="thumbnail" style="width:50px;height:50px;cursor:pointer;" onclick="viewImage(this.src);"></td>
-                                            <td><img src="../uploads/' . htmlspecialchars($row['valid_id']) . '" alt="Valid ID" class="thumbnail" style="width:50px;height:50px;cursor:pointer;" onclick="viewImage(this.src);"></td>
-                                        </tr>';
+                                        <td>' . $counter . '</td>
+                                        <td>' . htmlspecialchars($row['full_name']) . '</td>
+                                        <td>' . htmlspecialchars($row['birthday']) . '</td>
+                                        <td>' . htmlspecialchars($row['gender']) . '</td>
+                                        <td>' . htmlspecialchars($row['address']) . '</td>
+                                        <td>' . htmlspecialchars($row['email']) . '</td>
+                                        <td><img src="../uploads/' . htmlspecialchars($row['profile_pic']) . '" alt="Profile Pic" class="thumbnail" style="width:50px;height:50px;cursor:pointer;" onclick="viewImage(this.src);"></td>
+                                        <td><img src="../uploads/' . htmlspecialchars($row['valid_id']) . '" alt="Valid ID" class="thumbnail" style="width:50px;height:50px;cursor:pointer;" onclick="viewImage(this.src);"></td>
+                                    </tr>';
                                         $counter++;
                                     }
 
                                     echo '</tbody>
-                                    </table>';
+                                     </table>';
                                 } else {
                                     echo '<p>No approved users found.</p>';
                                 }
+
                                 ?>
                             </div>
                             <div class="card-footer clearfix">
@@ -142,15 +146,18 @@ if (!isset($_SESSION['email'])) {
                             </div>
                         </div>
 
-                        <div id="imageModal" class="modal" style="display:none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8);">
-                            <span id="closeModal" style="position: absolute; top: 10px; right: 25px; color: white; font-size: 35px; font-weight: bold; cursor: pointer;">&times;</span>
-                            <img id="modalImage" style="margin: auto; display: block; max-width: 90%; max-height: 90%; margin-top: 50px; ">
+                        <div id="imageModal" class="modal"
+                            style="display:none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8);">
+                            <span id="closeModal"
+                                style="position: absolute; top: 10px; right: 25px; color: white; font-size: 35px; font-weight: bold; cursor: pointer;">&times;</span>
+                            <img id="modalImage"
+                                style="margin: auto; display: block; max-width: 90%; max-height: 90%; margin-top: 50px; ">
                         </div>
 
 
                         <script>
                             let debounceTimer;
-                            document.getElementById('search-bar').addEventListener('input', function() {
+                            document.getElementById('search-bar').addEventListener('input', function () {
                                 clearTimeout(debounceTimer);
                                 debounceTimer = setTimeout(() => {
                                     const searchValue = this.value.trim();
@@ -169,11 +176,11 @@ if (!isset($_SESSION['email'])) {
                                 modalImage.src = src;
                             }
 
-                            document.getElementById('closeModal').onclick = function() {
+                            document.getElementById('closeModal').onclick = function () {
                                 document.getElementById('imageModal').style.display = 'none';
                             }
 
-                            window.onclick = function(event) {
+                            window.onclick = function (event) {
                                 const modal = document.getElementById('imageModal');
                                 if (event.target === modal) {
                                     modal.style.display = 'none';

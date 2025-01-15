@@ -40,11 +40,7 @@
       <div class="card-body register-card-body">
         <p class="register-box-msg">Register a new membership</p>
 
-        <center>
-          <a href="#" class="btn btn-secondary mb-2">Client</a>
-          <a href="organizer_signin.php" class="btn btn-primary mb-2">Organizer</a>
-          <a href="supplier_signin.php" class="btn btn-primary mb-2">Supplier</a>
-        </center>
+        <h1 class="d-flex justify-content-center align align-items-center" >Client</h1>
 
         <form action="registration_functions/register_user.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
           <input type="hidden" name="user_type" id="user_type" value="client">
@@ -151,7 +147,7 @@
 
           <div class="form-check mb-3">
             <input class="form-check-input" type="checkbox" name="terms" id="terms" required>
-            <label class="form-check-label" for="terms">I agree to the <a href="#">terms</a></label>
+            <label class="form-check-label" for="terms">I agree to the <a href="term.php">terms</a></label>
           </div>
 
           <button type="submit" class="btn btn-primary">Sign Up</button>

@@ -15,7 +15,7 @@ include 'functions/function.php'; ?>
 
 <?php include 'includes/head.php'; ?>
 
-<body>
+<body style=" background-color: #14213d;" >
 
     <!-- Spinner Start -->
     <!-- <div id="spinner"
@@ -26,7 +26,6 @@ include 'functions/function.php'; ?>
 
 
     <?php include 'includes/topbar.php'; ?>
-
 
     <?php
     if (isset($_GET['event_type'])) {

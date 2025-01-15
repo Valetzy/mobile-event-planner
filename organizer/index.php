@@ -51,7 +51,7 @@ $conn->close();
 
 <?php include 'includes/head.php'; ?>
 
-<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary" style=" background-color: #04062e;" >
   <div class="app-wrapper">
 
     <?php include 'includes/topbar.php'; ?>

@@ -59,8 +59,10 @@
 
           </li> <!--end::User Image--> <!--begin::Menu Body-->
           <!--begin::Menu Footer-->
-          <li class="user-footer"> <a href="../registration_functions/signout.php"
-              class="btn btn-default btn-flat float-end">Sign out</a> </li> <!--end::Menu Footer-->
+          <li class="user-footer">
+            <a href="profile.php" class="btn btn-default btn-flat">Profile</a>
+            <a href="../registration_functions/signout.php" class="btn btn-default btn-flat float-end">Sign out</a>
+          </li> <!--end::Menu Footer-->
         </ul>
       </li> <!--end::User Menu Dropdown-->
     </ul> <!--end::End Navbar Links-->

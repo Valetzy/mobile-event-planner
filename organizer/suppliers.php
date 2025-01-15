@@ -17,6 +17,25 @@ if (!isset($_SESSION['email'])) {
 
 <?php include 'includes/head.php'; ?>
 
+<style>
+    .info-box-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures the image fits the container while maintaining aspect ratio */
+        border-radius: 10%; /* Optional: Makes the image circular */
+    }
+
+    .info-box-icon {
+        width: 80px; /* Adjust as needed */
+        height: 80px; /* Adjust as needed */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden; /* Ensures the image doesn't overflow */
+    }
+</style>
+
+
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
     <div class="app-wrapper">
 
@@ -35,7 +54,7 @@ if (!isset($_SESSION['email'])) {
                             <ol class="breadcrumb float-sm-end">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Inventory
+                                Suppliers
                                 </li>
                             </ol>
                         </div>
@@ -67,6 +86,7 @@ if (!isset($_SESSION['email'])) {
                                             <span class="info-box-icon shadow-sm">
                                                 <img src="../uploads/suppliers/' . htmlspecialchars($imagePath) . '" alt="Supplier Image">
                                             </span>
+
                                             <div class="info-box-content">
                                                 <span class="info-box-text">' . htmlspecialchars($supplierName) . '</span>
                                                 <span class="info-box-number"><a href="supplier_details.php?id=' . htmlspecialchars($id) . '&supplier_type=' . htmlspecialchars($supplier_type) . '">More Info</a></span>

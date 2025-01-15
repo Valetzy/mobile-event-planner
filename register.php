@@ -37,7 +37,7 @@
     <center>
      <a href="client_signin.php" class="btn btn-primary mb-2">Client</a>
      <a href="plan/plan.php" class="btn btn-primary mb-2">Organizer</a>
-     <a href="supplier_signin.php" class="btn btn-primary mb-2">Supplier</a>
+     <a href="supplier_plan/plan.php" class="btn btn-primary mb-2">Supplier</a>
     </center>
 
     <p class="mb-0"> <a href="index.php" class="link-primary text-center">

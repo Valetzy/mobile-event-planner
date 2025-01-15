@@ -1,4 +1,9 @@
 <div class="container">
+    <div style="margin-top: -10px; margin-bottom: 20px;">
+        <a href="javascript:history.back()">
+            <img src="back.png" alt="Back Button" width="30px" height="30px">
+        </a>
+    </div>
     <div class="row g-0">
         <div class="col-1">
             <div class="img-fluid h-100 w-100 rounded-start"

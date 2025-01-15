@@ -145,7 +145,7 @@
 
           <div class="form-check mb-3">
             <input class="form-check-input" type="checkbox" name="terms" id="terms" required>
-            <label class="form-check-label" for="terms">I agree to the <a href="#">terms</a></label>
+            <label class="form-check-label" for="terms">I agree to the <a href="term.php">terms</a></label>
           </div>
 
           <input type="hidden" name="user_plan_id" value="<?php echo $_GET['user_plan_id'] ?>" >

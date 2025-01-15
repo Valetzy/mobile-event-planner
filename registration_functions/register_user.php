@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
 
         if ($stmt->execute()) {
-        echo "<script>alert('Registration successful! Wait 3-5 business days for account approval. Thank You!'); window.location.href = '../index.php';</script>";
+        echo "<script>alert('Registration successful! Wait 24 business Hours for account approval. Thank You!'); window.location.href = '../index.php';</script>";
 
         } else {
             echo "Error during registration.";

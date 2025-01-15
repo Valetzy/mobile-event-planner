@@ -34,11 +34,7 @@
       <div class="card-body register-card-body">
         <p class="register-box-msg">Register a new membership</p>
 
-        <center>
-          <a href="client_signin.php" class="btn btn-primary mb-2">Client</a>
-          <a href="organizer_signin.php" class="btn btn-primary mb-2">Organizer</a>
-          <a href="#" class="btn btn-secondary mb-2">Supplier</a>
-        </center>
+        <h1 class="d-flex justify-content-center align align-items-center" >Supplier</h1>
 
         <form action="registration_functions/register_supplier.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
           <input type="hidden" name="user_type" id="user_type" value="supplier">
@@ -78,7 +74,7 @@
 
           <div class="input-group mb-1">
             <div class="form-floating">
-              <input id="email" name="email" type="email" class="form-control" placeholder="" required>
+              <input id="email" name="email" type="email" class="form-control" placeholder=""  value="<?= $_GET['email'] ?>"  required>
               <label for="email">Email</label>
             </div>
           </div>
@@ -139,7 +135,7 @@
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                 <label class="form-check-label" for="flexCheckDefault">
-                  I agree to the <a href="#">terms</a>
+                  I agree to the <a href="term.php">terms</a>
                 </label>
               </div>
             </div>

@@ -1,6 +1,11 @@
 <!-- christening -->
 
 <div class="container">
+    <div style="margin-top: -10px; margin-bottom: 20px;">
+        <a href="javascript:history.back()">
+            <img src="back.png" alt="Back Button" width="30px" height="30px">
+        </a>
+    </div>
     <div class="row g-0">
         <div class="col-1">
             <div class="img-fluid h-100 w-100 rounded-start"
@@ -19,40 +24,40 @@
 
                         <div class="col-lg-8 col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput" name="full_name" value="<?php echo $_SESSION['name'] ?>"
-                                    placeholder="name@example.com" required>
+                                <input type="text" class="form-control" id="floatingInput" name="full_name"
+                                    value="<?php echo $_SESSION['name'] ?>" placeholder="name@example.com" required>
                                 <label for="floatingInput">Full Name of Contact Person</label>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput" name="relationship" 
+                                <input type="text" class="form-control" id="floatingInput" name="relationship"
                                     placeholder="name@example.com" required>
                                 <label for="floatingInput">Relationship to the Celebrant </label>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-6">
-                            <div class="form-floating mb-3"> 
-                                <input type="number" class="form-control" id="floatingInput" name="contact_number" value="<?php echo $_SESSION['contact'] ?>"
-                                    placeholder="name@example.com" required>
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" id="floatingInput" name="contact_number"
+                                    value="<?php echo $_SESSION['contact'] ?>" placeholder="name@example.com" required>
                                 <label for="floatingInput">Contact Number</label>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="floatingInput" name="email" value="<?php echo $_SESSION['email'] ?>"
-                                    placeholder="name@example.com" required>
+                                <input type="email" class="form-control" id="floatingInput" name="email"
+                                    value="<?php echo $_SESSION['email'] ?>" placeholder="name@example.com" required>
                                 <label for="floatingInput">Email </label>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput" name="address" value="<?php echo $_SESSION['address'] ?>"
-                                    placeholder="name@example.com" required>
+                                <input type="text" class="form-control" id="floatingInput" name="address"
+                                    value="<?php echo $_SESSION['address'] ?>" placeholder="name@example.com" required>
                                 <label for="floatingInput">Address </label>
                             </div>
                         </div>
@@ -119,7 +124,7 @@
                                 <input type="time" class="form-control" id="floatingInput" name="reception_time"
                                     placeholder="name@example.com" required>
                                 <label for="floatingInput">Time of Reception </label>
-                            </div> 
+                            </div>
                         </div>
 
                         <input type="hidden" name="event_id" value="<?php echo $_GET['event_id'] ?>">
@@ -129,9 +134,11 @@
                         <input type="hidden" name="date_end" value="<?php echo $_GET['date_end'] ?>">
                         <input type="hidden" name="client_id" value="<?php echo $_SESSION['id'] ?>">
 
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill"
-                                fdprocessedid="o2nolj">Submit Now</button>
+                        <div class="col-6 text-center">
+                            <a href="javascript:history.back()" class="btn btn-secondary py-3 rounded-pill">Cancel</a>
+                        </div>
+                        <div class="col-6 text-center">
+                            <button type="submit" class="btn btn-primary py-3 rounded-pill">Submit Now</button>
                         </div>
                     </div>
                 </form>

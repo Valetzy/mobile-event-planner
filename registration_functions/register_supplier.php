@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("ssssissssss", $user_type, $business_name, $supplier_types, $address, $contact, $email, $hashed_password, $business_picture['name'], $business_permit['name'], $dti_permit['name'], $bir_permit['name']);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Registration successful! Wait 3-5 business days for account approval. Thank You!'); window.location.href = '../index.php';</script>";
+        echo "<script>alert('Registration successful! Wait 24 business Hours for account approval. Thank You!'); window.location.href = '../index.php';</script>";
         // Optionally redirect to a success page or send a success response
     } else {
         die('Execution failed: ' . $stmt->error);

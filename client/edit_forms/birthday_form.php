@@ -1,4 +1,9 @@
 <div class="container">
+    <div style="margin-top: -10px; margin-bottom: 20px;">
+        <a href="javascript:history.back()">
+            <img src="back.png" alt="Back Button" width="30px" height="30px">
+        </a>
+    </div>
     <div class="row g-0">
         <div class="col-1">
             <div class="img-fluid h-100 w-100 rounded-start"
@@ -89,8 +94,8 @@
 
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="contact_number" name="contact_number" disabled
-                                            value="<?php echo htmlspecialchars($row['contact_number']); ?>"
+                                        <input type="number" class="form-control" id="contact_number" name="contact_number"
+                                            disabled value="<?php echo htmlspecialchars($row['contact_number']); ?>"
                                             placeholder="Contact Number" required>
                                         <label for="contact_number">Contact Number</label>
                                     </div>
@@ -98,8 +103,8 @@
 
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" disabled
-                                            value="<?php echo htmlspecialchars($row['email']); ?>" required>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                            disabled value="<?php echo htmlspecialchars($row['email']); ?>" required>
                                         <label for="email">Email</label>
                                     </div>
                                 </div>
@@ -107,8 +112,8 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="address" name="address"
-                                            value="<?php echo htmlspecialchars($row['address']); ?>" placeholder="Address" disabled
-                                            required>
+                                            value="<?php echo htmlspecialchars($row['address']); ?>" placeholder="Address"
+                                            disabled required>
                                         <label for="address">Address</label>
                                     </div>
                                 </div>
@@ -119,8 +124,8 @@
 
                                 <div class="col-lg-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="celebrant_name" name="celebrant_name" disabled
-                                            value="<?php echo htmlspecialchars($row['celebrant_name']); ?>"
+                                        <input type="text" class="form-control" id="celebrant_name" name="celebrant_name"
+                                            disabled value="<?php echo htmlspecialchars($row['celebrant_name']); ?>"
                                             placeholder="Celebrant Name" required>
                                         <label for="celebrant_name">Full Name of the Celebrant</label>
                                     </div>
@@ -128,8 +133,8 @@
 
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth" disabled
-                                            value="<?php echo htmlspecialchars($row['dob']); ?>" required>
+                                        <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth"
+                                            disabled value="<?php echo htmlspecialchars($row['dob']); ?>" required>
                                         <label for="dob">Date of Birth</label>
                                     </div>
                                 </div>
@@ -147,7 +152,7 @@
                                         <select class="form-control" id="gender" name="gender" required>
                                             <option value="<?php echo htmlspecialchars(string: $row['gender']); ?>" disabled
                                                 selected><?php echo htmlspecialchars(string: $row['gender']); ?></option>
-                                           
+
                                         </select>
                                         <label for="gender">Gender</label>
                                     </div>

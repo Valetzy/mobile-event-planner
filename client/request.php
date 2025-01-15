@@ -11,11 +11,11 @@ include 'functions/function.php'; ?>
 <?php include '../connection/conn.php'; ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style=" background-color: #14213d;">
 
 <?php include 'includes/head.php'; ?>
 
-<body>
+<body style=" background-color: #14213d;">
 
     <!-- Spinner Start -->
     <div id="spinner"
@@ -28,7 +28,7 @@ include 'functions/function.php'; ?>
     <?php include 'includes/topbar.php'; ?>
 
 
-    <div class="container">
+    <div class="container" style=" background-color: #14213d; ">
         <div class="row g-0">
             <div class="col-1">
                 <div class="img-fluid h-100 w-100 rounded-start"
@@ -55,7 +55,7 @@ include 'functions/function.php'; ?>
                             INNER JOIN users AS u ON crf.organizer_id = u.user_id
                             WHERE (bcf.id IS NOT NULL OR wf.id IS NOT NULL OR cf.id IS NOT NULL)
                             AND crf.status = 'approved' AND crf.client_id = $user_id
-                            ORDER BY crf.date_created ASC"; // Sort by date_created in ascending order
+                            ORDER BY crf.date_created DESC"; // Sort by date_created in ascending order
 
 
                     $result = mysqli_query($conn, $query);

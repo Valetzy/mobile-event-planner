@@ -57,6 +57,12 @@ include '../connection/conn.php';
     <!-- Team Start -->
     <div class="container-fluid team py-6">
         <div class="container">
+            <div style="margin-top: -80px; margin-bottom: 20px;">
+                <a href="javascript:history.back()">
+                    <img src="back.png" alt="Back Button" width="30px" height="30px">
+                </a>
+            </div>
+
             <div class="text-center wow bounceInUp" data-wow-delay="0.1s">
                 <h1 class="display-5 mb-5">Event Organizer</h1>
             </div>
@@ -99,8 +105,9 @@ include '../connection/conn.php';
                         $address = $row['address'];
                         $birthday = $row['birthday'];
                         $age = $row['age'];
+                        $facebook = $row['facebook'];
                         $modal_id = "exampleModal" . $row['user_id'];
-                ?>
+                        ?>
 
                         <div class="col-lg-3 col-md-6 wow bounceInUp" data-wow-delay="0.1s">
                             <div class="team-item rounded" data-bs-toggle="modal" data-bs-target="#<?= $modal_id ?>">
@@ -174,6 +181,9 @@ include '../connection/conn.php';
                                                             </label><br>
                                                             <label>
                                                                 <h1 style="font-size:25px;">Contact Number: <?= $contact ?></h1>
+                                                            </label><br>
+                                                            <label>
+                                                                <h1 style="font-size:25px;">Facebook: <a href="<?= $facebook ?>" target="_blank" rel="noopener noreferrer"><?= $facebook ?></a> </h1>
                                                             </label><br><br>
                                                         </center>
                                                         <br><br>
@@ -228,7 +238,7 @@ include '../connection/conn.php';
                             </div>
                         </div>
 
-                <?php
+                        <?php
                     }
                 } else {
                     echo '<p class="text-center">No organizers available for the selected date range.</p>';
@@ -247,7 +257,7 @@ include '../connection/conn.php';
 
     <script>
         // Smooth scrolling for the photo gallery (optional)
-        document.querySelector('.photo-gallery').addEventListener('wheel', function(event) {
+        document.querySelector('.photo-gallery').addEventListener('wheel', function (event) {
             if (event.deltaY > 0) {
                 this.scrollBy(300, 0); // Scroll right
             } else {
