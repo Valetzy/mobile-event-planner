@@ -93,6 +93,6 @@ if (!isset($_SESSION['email'])) {
         <script src="js/main.js"></script>
     </body>
 </html>
-<body>
+<body>   
     
 </body>

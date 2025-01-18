@@ -25,7 +25,7 @@ if (isset($_GET['id'])) {
             <center>
                 <h1>Your Account in Mobile Event Planner is Approved!</h1> <br>
                 <p>You can now log in to the Mobile Event Planner :)</p>
-                <a class="btn btn-primary" href="https://localhost/mobile_event_planner/index.php">Log In to Timeclass</a>
+                <a class="btn btn-primary" href="https://localhost/mobile_event_planner/index.php">Log In to Mobile Event Planner</a>
             </center>
             END;
 

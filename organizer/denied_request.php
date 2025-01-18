@@ -74,7 +74,7 @@ include '../connection/conn.php';
                                         INNER JOIN event_types AS et ON crf.event_type = et.event_type_id
                                         INNER JOIN users AS u ON crf.client_id = u.user_id 
                                         WHERE crf.status = 'rejected' AND crf.organizer_id = '$organizer_id' 
-                                        AND (bcf.id IS NOT NULL OR wf.id IS NOT NULL OR cf.id IS NOT NULL) ORDER BY crf.date_created ASC ";
+                                        AND (bcf.id IS NOT NULL OR wf.id IS NOT NULL OR cf.id IS NOT NULL) ORDER BY crf.date_created DESC ";
 
                                 // Execute the query
                                 $result = mysqli_query($conn, $sql);
