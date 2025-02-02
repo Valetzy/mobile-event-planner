@@ -25,63 +25,67 @@ include '../connection/conn.php';
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                events: 'fetch_events.php',
-                eventClick: function (info) {
-                    var id = info.event.extendedProps.id;
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    events: 'fetch_events.php',
+                    eventClick: function (info) {
+                        var id = info.event.extendedProps.id;
+                        var title = info.event.title;
+                        var start = info.event.start.toISOString().split('T')[0];
+                        var end = info.event.end ? info.event.end.toISOString().split('T')[0] : start;
+                        var fullName = info.event.extendedProps.full_name || 'Unknown Organizer';
+                        var profilePic = info.event.extendedProps.profile_pic || 'default-profile.png';
 
-                    // Debugging: Log the ID to confirm it's being retrieved
-                    console.log("Event ID:", id);
+                        var today = new Date().toISOString().split('T')[0]; // Get today's date
 
-                    var title = info.event.title;
-                    var start = info.event.start.toLocaleDateString();
-                    var end = info.event.end ? info.event.end.toLocaleDateString() : 'N/A';
-                    var fullName = info.event.extendedProps.full_name || 'Unknown Organizer';
-                    var profilePic = info.event.extendedProps.profile_pic || 'default-profile.png';
+                        // Convert dates to Date objects for accurate comparison
+                        var endDate = new Date(end);
+                        var todayDate = new Date(today);
 
-                    document.getElementById('eventDetails').innerHTML = `
-                        <div class="text-center">
-                            <img src="../uploads/${profilePic}" alt="${fullName}" class="rounded-circle" style="width: 100px; height: 100px;">
-                            <h1>${title}</h1>
-                            <h2>${fullName}</h2>
-                            <p><strong>Start:</strong> ${start}</p>
-                            <p><strong>End:</strong> ${end}</p>
-                            <button class='btn btn-success' data-bs-toggle='modal' data-bs-target='#largeModal${id}'>Mark as Done</button>
-                        </div>
+                        // Determine if the button should be hidden
+                        var buttonStyle = todayDate < endDate ? "display: none;" : "";
 
-                        <div class='modal fade' id='largeModal${id}' tabindex='-1'>
-                            <div class='modal-dialog modal-lg'>
-                                <div class='modal-content'>
-                                    <div class='modal-header'>
-                                        <h5 class='modal-title'>Upload Pictures</h5>
-                                        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                        document.getElementById('eventDetails').innerHTML = `
+                <div class="text-center">
+                    <img src="../uploads/${profilePic}" alt="${fullName}" class="rounded-circle" style="width: 100px; height: 100px;">
+                    <h1>${title}</h1>
+                    <h2>${fullName}</h2>
+                    <p><strong>Start:</strong> ${start}</p>
+                    <p><strong>End:</strong> ${end}</p>
+                    <button class='btn btn-success' data-bs-toggle='modal' data-bs-target='#largeModal${id}' style="${buttonStyle}">Mark as Done</button>
+                </div>
+
+                <div class='modal fade' id='largeModal${id}' tabindex='-1'>
+                    <div class='modal-dialog modal-lg'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title'>Upload Pictures</h5>
+                                <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                            </div>
+                            <div class='modal-body'>
+                                <form id='uploadForm${id}' action='functions/done.php' method='post' enctype='multipart/form-data'>
+                                    <input type='hidden' name='id' value='${id}'>
+                                    <div class='mb-3'>
+                                        <label for='pictures${id}' class='form-label'>Select Pictures</label>
+                                        <input type='file' class='form-control' id='pictures${id}' name='pictures[]' multiple accept='image/*'>
+                                        <small class='form-text text-muted'>You can select multiple pictures.</small>
                                     </div>
-                                    <div class='modal-body'>
-                                        <form id='uploadForm${id}' action='functions/done.php' method='post' enctype='multipart/form-data'>
-                                            <input type='hidden' name='id' value='${id}'>
-                                            <div class='mb-3'>
-                                                <label for='pictures${id}' class='form-label'>Select Pictures</label>
-                                                <input type='file' class='form-control' id='pictures${id}' name='pictures[]' multiple accept='image/*'>
-                                                <small class='form-text text-muted'>You can select multiple pictures.</small>
-                                            </div>
-                                            <div id='imagePreview${id}' class='d-flex flex-wrap gap-2'></div>
-                                        </form>
-                                    </div>
-                                    <div class='modal-footer'>
-                                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-                                        <button type='submit' form='uploadForm${id}' class='btn btn-primary'>Upload</button>
-                                    </div>
-                                </div>
+                                    <div id='imagePreview${id}' class='d-flex flex-wrap gap-2'></div>
+                                </form>
+                            </div>
+                            <div class='modal-footer'>
+                                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+                                <button type='submit' form='uploadForm${id}' class='btn btn-primary'>Upload</button>
                             </div>
                         </div>
-                    `;
-                }
+                    </div>
+                </div>
+            `;
+                    }
+                });
+                calendar.render();
             });
-            calendar.render();
-        });
-
 
         </script>
 

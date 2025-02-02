@@ -23,6 +23,7 @@
                         </p>
 
                         <input type="hidden" name="event_id" value="<?php echo $_GET['event_id']; ?>">
+                        <input type="hidden" name="package_id" value="<?php echo $_GET['package_id']; ?>">
 
                         <div class="col-lg-8 col-md-6">
                             <div class="form-floating mb-3">
@@ -79,28 +80,52 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="form-floating mb-3">
                                 <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth"
-                                    required>
+                                    required onchange="calculateAge()">
                                 <label for="dob">Date of Birth</label>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="age" name="age" placeholder="Age"
-                                    required>
+                                <input type="number" class="form-control" id="age" name="age" placeholder="Age" required
+                                    readonly>
                                 <label for="age">Age</label>
                             </div>
                         </div>
+
+                        <script>
+                            function calculateAge() {
+                                const dob = document.getElementById("dob").value;
+                                const ageInput = document.getElementById("age");
+
+                                if (dob) {
+                                    const dobDate = new Date(dob);
+                                    const today = new Date();
+                                    let age = today.getFullYear() - dobDate.getFullYear();
+                                    const monthDiff = today.getMonth() - dobDate.getMonth();
+
+                                    // Adjust age if birthday hasn't occurred yet this year
+                                    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+                                        age--;
+                                    }
+
+                                    ageInput.value = age;
+                                } else {
+                                    ageInput.value = "";
+                                }
+                            }
+                        </script>
+
 
                         <div class="col-lg-4 col-md-6">
                             <div class="form-floating mb-3">
                                 <select class="form-control" id="gender" name="gender" required
                                     style="background-color: #14213d;">
-                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="" disabled selected>Select Sex</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
-                                <label for="gender">Gender</label>
+                                <label for="gender">Sex</label>
                             </div>
                         </div>
 

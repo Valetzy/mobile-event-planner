@@ -11,6 +11,8 @@ if (isset($_SESSION['id'])) {
         $theme = $_POST['theme'];
         $event_package_name = $_POST['event_package_name'];
         $selected_products = isset($_POST['selected_products']) ? $_POST['selected_products'] : [];
+        $venue = $_POST['venue'];
+        $location = $_POST['location'];
 
         // Handle file upload
         $target_dir = "../../uploads/products/"; // Specify your upload directory
@@ -33,19 +35,19 @@ if (isset($_SESSION['id'])) {
 
         // Allow certain file formats
         if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            echo "<script>alert('Sorry, only JPG, JPEG, PNG & GIF files are allowed.'); window.history.back();</script>";
             $uploadOk = 0;
         }
 
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0) {
-            echo "Sorry, your file was not uploaded.";
+            echo "";
         } else {
             // Attempt to upload file
             if (move_uploaded_file($_FILES["theme_photo"]["tmp_name"], $target_file)) {
                 // Prepare the SQL statement to insert the event data
-                $stmt = $conn->prepare("INSERT INTO events (organizer_id, event_type, theme, theme_photo, participants, price, event_package_name) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("isssiis", $id, $event_type, $theme, basename($_FILES["theme_photo"]["name"]), $participants, $price, $event_package_name);
+                $stmt = $conn->prepare("INSERT INTO events (organizer_id, event_type, theme, theme_photo, participants, price, event_package_name, supplier_venue, supplier_location) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("isssiisis", $id, $event_type, $theme, basename($_FILES["theme_photo"]["name"]), $participants, $price, $event_package_name, $venue, $location);
 
                 if ($stmt->execute()) {
                     $event_id = $stmt->insert_id; // Get the last inserted event ID

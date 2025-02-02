@@ -109,18 +109,18 @@ include '../connection/conn.php';
                                             echo "
                                                     <tr>
                                                         <td>{$row['id']}</td>
-                                                        <td><img  style='width: 200px' src='{$profile_image}' alt='photo'></td>
+                                                        <td><img style='width: 200px' src='{$profile_image}' alt='photo'></td>
                                                         <td>{$row['full_name']}</td>
                                                         <td>{$event_type}</td>
                                                         <td>{$package}</td>
-                                                        <td>{$row['date_created']}</td>
+                                                        <td>" . date("m/d/Y", strtotime($row['date_created'])) . "</td>
                                                         <td>
-                                                            <a class='btn btn-primary' href='view_request.php?id={$row['id']}&eventType={$event_type}&status={$status}'approved'>View Details</a>
+                                                            <a class='btn btn-primary' href='view_request.php?id={$row['id']}&eventType={$event_type}&status={$status}'>View Details</a>
                                                             <button class='btn btn-primary' onclick='handleAction({$row['id']})'>Approved</button>  
                                                             <button class='btn btn-danger' onclick='deniedAction({$row['id']})'>Cancel</button>
                                                         </td>
-                                                    </tr>
-                                                ";
+                                                    </tr>";
+
                                         }
                                         ?>
                                     </tbody>

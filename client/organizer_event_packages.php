@@ -90,7 +90,7 @@ include '../connection/conn.php'; ?>
                                             <p class="fw-bold mb-0"><?= $event_package_name ?></p>
                                         </div>
                                     </div>
-                                    <a href="client_form.php?event_id=<?php echo $event_id ?>&event_type=<?php echo $_GET['eventtype_id'] ?>&organizer_id=<?php echo $_GET['user_id'] ?>&date_start=<?php echo $_GET['date_start'] ?>&date_end=<?php echo $_GET['date_end'] ?>"
+                                    <a href="process_package.php?event_id=<?php echo $event_id ?>&event_type=<?php echo $_GET['eventtype_id'] ?>&organizer_id=<?php echo $_GET['user_id'] ?>&date_start=<?php echo $_GET['date_start'] ?>&date_end=<?php echo $_GET['date_end'] ?>&event_name=<?= $_GET['event_name'] ?>&eventtype_id=<?= $_GET['eventtype_id'] ?>&user_id=<?= $_GET['user_id'] ?>"
                                         class="h6 lh-base my-auto h-100 p-3">
                                         Theme: <span style="color: #d4a762;"> <?= $theme ?></span><br>
                                         Participants:<span style="color: #d4a762;"><?= $participants ?></span><br>
@@ -179,6 +179,60 @@ include '../connection/conn.php'; ?>
                                                             required placeholder="Enter Product Name">
                                                     </div>
                                                 </div>
+                                                <?php
+                                        // Check if the session variable is set
+                                        
+                                            $query_products = "SELECT * FROM supplier WHERE supplier_type = 'venue'";
+                                            $stmt_products = $conn->prepare($query_products);
+                                            $stmt_products->execute();
+                                            $products_result = $stmt_products->get_result();
+                                            ?>
+                                            <div class="col-sm-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Event Venue</label>
+                                                    <div class="input-group">
+                                                        <select class="form-control" name="venue" id="venue"
+                                                            onchange="updateAddress()">
+                                                            <option selected >Choose a Venue</option>
+                                                            <?php while ($products = $products_result->fetch_assoc()) { ?>
+                                                                <option
+                                                                    value="<?php echo htmlspecialchars($products['supplier_id']); ?>"
+                                                                    data-address="<?php echo htmlspecialchars($products['address']); ?>">
+                                                                    <?php echo htmlspecialchars($products['business_name']); ?>
+                                                                </option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        
+                                        ?>
+
+                                        <div class="col-sm-6 col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Location <span
+                                                        class="text-red">*</span></label>
+                                                <input type="text" class="form-control" name="location" id="location"
+                                                    required placeholder="Supplier Address">
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            function updateAddress() {
+                                                var venueSelect = document.getElementById("venue");
+                                                var addressInput = document.getElementById("location");
+
+                                                var selectedOption = venueSelect.options[venueSelect.selectedIndex];
+                                                var address = selectedOption.getAttribute("data-address");
+
+                                                if (address) {
+                                                    addressInput.value = address;
+                                                } else {
+                                                    addressInput.value = "";
+                                                }
+                                            }
+                                        </script>
                                                 <div class="col-sm-6 col-12">
                                                     <div class="mb-3">
                                                         <label class="form-label">Add-ons(Others)<span

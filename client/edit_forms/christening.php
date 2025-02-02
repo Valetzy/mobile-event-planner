@@ -5,11 +5,7 @@
         </a>
     </div>
     <div class="row g-0">
-        <div class="col-1">
-            <div class="img-fluid h-100 w-100 rounded-start"
-                style="object-fit: cover; opacity: 0.7; background-color: #d4a762;"></div>
-        </div>
-        <div class="col-10">
+        <div class="col-12">
             <div class="border-bottom border-top border-primary bg-light py-5 px-4">
 
 
@@ -20,7 +16,7 @@
                 // Query to combine data from all forms
                 $query = "
                        SELECT 
-                            cf.event_id, cf.full_name, cf.relationship, cf.contact_number, cf.email, cf.address, cf.baby_name, cf.dob, cf.gender, 
+                            cf.package_id, cf.event_id, cf.full_name, cf.relationship, cf.contact_number, cf.email, cf.address, cf.baby_name, cf.dob, cf.gender, 
                             cf.baptism_date, cf.baptism_time, cf.reception_date, cf.reception_time, cf.reception_name, cf.reception_location,
                             crf.client_form_id, crf.client_id, crf.organizer_id, crf.event_type, crf.status, crf.date_start, crf.date_end
                         FROM client_request_form AS crf
@@ -47,9 +43,10 @@
                         <div class="text-center">
                             <?php
                             $event_id = htmlspecialchars($row['event_id']);
+                            $package_id = htmlspecialchars($row['package_id']);
 
                             // Query to select the event
-                            $query_ev = "SELECT * FROM events WHERE event_id = $event_id";
+                            $query_ev = "SELECT * FROM events WHERE event_id = $package_id";
 
                             // Execute the query
                             $result_ev = mysqli_query($conn, $query_ev);
@@ -60,7 +57,7 @@
                                     echo '<h1 class="display-5 mb-5">' . htmlspecialchars($row_ev['event_package_name']) . '</h1>';
                                 }
                             } else {
-                                echo '<h1 class="display-5 mb-5">Customized Package Event</h1>';
+                                echo '<h1 class="display-5 mb-5">Costumize Package Event</h1>';
                             }
                             ?>
                         </div>
@@ -198,20 +195,238 @@
                             </div>
                         </form>
 
+            </div>
+        </div>
+
+        <?php
+        $package_id = htmlspecialchars($row['package_id']);
+        if ($package_id > 0) {
+            $query_id = $package_id;
+            
+            ?>
+            <div class="col-12">
+            <div class="card" style="background-color: #14213d;">
+                <div class="card-body">
+                    <?php
+                    $sql = "SELECT ot.event_name, e.supplier_location, s.business_name, e.supplier_venue, e.participants, e.price, e.theme, e.theme_photo, ot.event_name, e.event_package_name, e.event_id 
+                    FROM events AS e 
+                    INNER JOIN event_types AS ot ON ot.event_type_id = e.event_type
+                    INNER JOIN supplier AS s ON s.supplier_id = e.supplier_venue
+                    WHERE e.event_id = '$query_id'";
+
+                    $result = mysqli_query($conn, $sql);
+
+                    $disable_button = mysqli_num_rows($result) === 0;
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $participants = $row['participants'];
+                            $price = $row['price'];
+                            $event_package_name = $row['event_package_name'];
+                            $event_id = $row['event_id'];
+                            $theme = $row['theme'];
+                            $supplier_venue = $row['supplier_venue'];
+                            $business_name = $row['business_name'];
+                            $supplier_location = $row['supplier_location'];
+                            $event_name = $row['event_name'];
+                            $theme_photo = $row['theme_photo'];
+                            ?>
+
+                            <div class="row g-4 form">
 
 
-                    <?php endwhile; ?>
+                                <center>
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="overflow-hidden rounded" style="height: 300px;">
+                                            <img src="../uploads/products/<?= $theme_photo ?>"
+                                                class="img-fluid w-100 h-100 object-cover" alt="">
+                                        </div>
+                                    </div>
+                                </center>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_package_name"
+                                            name="event_package_name" disabled value="<?php echo $event_package_name; ?>"
+                                            placeholder="Full Name" required>
+                                        <label for="event_package_name">Package Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_name" name="event_name" disabled
+                                            value="<?php echo $event_name; ?>" placeholder="Full Name" required>
+                                        <label for="event_name">Event Type</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="theme" name="theme" disabled
+                                            value="<?php echo $theme; ?>" placeholder="Full Name" required>
+                                        <label for="theme">Theme</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="participants" name="participants" disabled
+                                            value="<?php echo $participants; ?>" placeholder="Full Name" required>
+                                        <label for="participants">Participants</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="price" name="price" disabled
+                                            value="<?php echo $price; ?>" placeholder="Full Name" required>
+                                        <label for="price">Price</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_name" name="event_name" disabled
+                                            value="<?php echo $event_name; ?>" placeholder="Full Name" required>
+                                        <label for="event_name">Event Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="supplier_location" name="supplier_location"
+                                            disabled value="<?php echo $supplier_location; ?>" placeholder="Full Name" required>
+                                        <label for="supplier_location">Location</label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <?php
+
+                        }
+                    } else {
+                        echo 'No events found.';
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+
+            <?php 
+        } else {
+            $query_id = $event_id;
+
+            ?>
+            <div class="col-12">
+            <div class="card" style="background-color: #14213d;">
+                <div class="card-body">
+                    <?php
+                    $sql = "SELECT cce.participants, cce.budget, cce.event_package_name, cce.theme, cce.supplier_venue, cce.reference_photo, cce.supplier_location, s.business_name, et.event_name
+                    FROM client_customized_event AS cce
+                    INNER JOIN event_types AS et ON et.event_type_id = cce.event_type
+                    INNER JOIN supplier AS s ON s.supplier_id = cce.supplier_venue
+                    WHERE cce.id = '$query_id'";
+
+                    $result = mysqli_query($conn, $sql);
+
+                    $disable_button = mysqli_num_rows($result) === 0;
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $participants = $row['participants'];
+                            $price = $row['budget'];
+                            $event_package_name = $row['event_package_name'];
+                            $theme = $row['theme'];
+                            $supplier_venue = $row['supplier_venue'];
+                            $business_name = $row['business_name'];
+                            $supplier_location = $row['supplier_location'];
+                            $theme_photo = $row['reference_photo'];
+                            $event_name = $row['event_name'];
+                            ?>
+
+                            <div class="row g-4 form">
+
+
+                                <center>
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="overflow-hidden rounded" style="height: 300px;">
+                                            <img src="../uploads/client/<?php echo $theme_photo; ?>"
+                                                class="img-fluid w-100 h-100 object-cover" alt="">
+                                        </div>
+                                    </div>
+                                </center>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_package_name"
+                                            name="event_package_name" disabled value="<?php echo $event_package_name; ?>"
+                                            placeholder="Full Name" required>
+                                        <label for="event_package_name">Package Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_name" name="event_name" disabled
+                                            value="<?php echo $event_name; ?>" placeholder="Full Name" required>
+                                        <label for="event_name">Event Type</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="theme" name="theme" disabled
+                                            value="<?php echo $theme; ?>" placeholder="Full Name" required>
+                                        <label for="theme">Theme</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="participants" name="participants" disabled
+                                            value="<?php echo $participants; ?>" placeholder="Full Name" required>
+                                        <label for="participants">Participants</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="price" name="price" disabled
+                                            value="<?php echo $price; ?>" placeholder="Full Name" required>
+                                        <label for="price">Price</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_name" name="event_name" disabled
+                                            value="<?php echo $business_name; ?>" placeholder="Full Name" required>
+                                        <label for="event_name">Event Venue</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="supplier_location" name="supplier_location"
+                                            disabled value="<?php echo $supplier_location; ?>" placeholder="Full Name" required>
+                                        <label for="supplier_location">Location</label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <?php
+
+                        }
+                    } else {
+                        echo 'No events found.';
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+            <?php
+        }
+        ?>
+
+<?php endwhile; ?>
                 <?php else: ?>
 
                     <h1 class="display-5 mb-5">No data available</h1>
 
                 <?php endif; ?>
 
-            </div>
-        </div>
-        <div class="col-1">
-            <div class="img-fluid h-100 w-100 rounded-end"
-                style="object-fit: cover; opacity: 0.7; background-color: #d4a762;"></div>
-        </div>
     </div>
 </div>

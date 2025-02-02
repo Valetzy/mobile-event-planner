@@ -3,7 +3,7 @@
 session_start();
 
 // Include your database connection file
-include '../connection/conn.php ';
+include '../connection/conn.php';
 
 // Check if the supplier_id exists in the session
 if (!isset($_SESSION['id'])) {

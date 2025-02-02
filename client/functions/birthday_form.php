@@ -22,7 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $date_start = $_POST['date_start'] ?? null;
         $date_end = $_POST['date_end'] ?? null;
         $client_id = $_POST['client_id'] ?? null;
-
+        $package_id = $_POST['package_id'] ?? null;
+        
         // Ensure all required fields are present
         if (!$event_id || !$contact_name || !$relationship || !$contact_number || !$email || !$address || 
             !$celebrant_name || !$dob || !$age || !$gender || !$start_time || !$end_time ||
@@ -41,11 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Insert into `birthday_client_form` table
         $stmt = $conn->prepare("
             INSERT INTO birthday_client_form 
-            (event_id, contact_name, relationship, contact_number, email, address, celebrant_name, dob, age, gender, start_time, end_time)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (event_id, contact_name, relationship, contact_number, email, address, celebrant_name, dob, age, gender, start_time, end_time, package_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         $stmt->bind_param(
-            'isssssssssss', // 12 placeholders for 12 parameters
+            'issssssssssss', // 12 placeholders for 12 parameters
             $event_id,
             $contact_name,
             $relationship,
@@ -57,7 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $age,
             $gender,
             $start_time,
-            $end_time
+            $end_time,
+            $package_id
         );
         $stmt->execute();
 

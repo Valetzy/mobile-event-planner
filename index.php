@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Destroy the session if the user navigates back to login.php after logging in
+if (isset($_SESSION['email'])) {
+    session_destroy();
+    header("Location: index.php"); // Reload login page to enforce session reset
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

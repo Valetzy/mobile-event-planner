@@ -16,6 +16,12 @@ include '../connection/conn.php';
 <html lang="en"> <!--begin::Head-->
 
 <?php include 'includes/head.php'; ?>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS (make sure this is included after jQuery) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary"> <!--begin::App Wrapper-->
     <div class="app-wrapper">
@@ -69,86 +75,190 @@ include '../connection/conn.php';
                             ?>
 
                             <div class="card card-primary card-outline mb-4">
-                                <!--begin::Header-->
-                                <div class="card-header">
-                                    <div class="card-title">Profile Info</div>
+                                <!-- Card Header -->
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title mb-0">Profile Info</h5>
                                 </div>
-                                <!--end::Header-->
 
-                                <!--begin::Form-->
-                                <form>
-                                    <!--begin::Body-->
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-center mb-5">
-                                            <img class="user-image shadow rounded-circle" width="200" height="200"
-                                                style="object-fit: cover;"
-                                                src="../uploads/<?php echo htmlspecialchars($supplier['profile_pic'] ?? 'default.jpg'); ?>"
-                                                alt="">
-                                        </div>
-                                        <div class="row">
-                                            <!--begin::Col-->
-                                            <div class="col-md-12"><strong>Name:</strong>
-                                                <?php echo htmlspecialchars($supplier['full_name'] ?? 'N/A'); ?>
-                                            </div>
-                                            <!--end::Col-->
-                                            <!--begin::Col-->
-                                            <div class="col-md-12"><strong>Address:</strong>
-                                                <?php echo htmlspecialchars($supplier['address'] ?? 'N/A'); ?></div>
-                                            <!--end::Col-->
-                                            <!--begin::Col-->
-                                            <div class="col-md-12"><strong>Contact:</strong>
-                                                <?php echo htmlspecialchars($supplier['contact'] ?? 'N/A'); ?></div>
-                                            <!--end::Col-->
-                                            <!--begin::Col-->
-                                            <div class="col-md-12"><strong>Email:</strong>
-                                                <?php echo htmlspecialchars($supplier['email'] ?? 'N/A'); ?></div>
-                                            <!--end::Col-->
-                                            <div class="col-md-12">
-                                                <strong>Facebook:</strong>
-                                                <?php
-                                                if (empty($supplier['facebook'])) {
-                                                    echo '<button class="btn btn-primary" onclick="addFacebookLink()">Add Facebook Link</button>';
-                                                } else {
-                                                    echo '<a href="' . htmlspecialchars($supplier['facebook']) . '" target="_blank">' . htmlspecialchars($supplier['facebook']) . '</a>';
-                                                }
-                                                ?>
-                                            </div>
+                                <!-- Card Body -->
+                                <div class="card-body text-center">
+                                    <!-- Profile Image -->
+                                    <div class="mb-4">
+                                        <img class="user-image shadow rounded-circle" width="200" height="200"
+                                            style="object-fit: cover;"
+                                            src="../uploads/<?php echo htmlspecialchars($supplier['profile_pic'] ?? 'default.jpg'); ?>"
+                                            alt="Profile Picture">
+                                    </div>
 
-                                            <script>
-                                                function addFacebookLink() {
-                                                    const link = prompt("Please enter the Facebook link:");
-                                                    if (link) {
-                                                        // Send the link to the server using fetch API
-                                                        fetch("save_facebook.php", {
-                                                            method: "POST",
-                                                            headers: {
-                                                                "Content-Type": "application/x-www-form-urlencoded"
-                                                            },
-                                                            body: "facebook=" + encodeURIComponent(link)
-                                                        })
-                                                            .then(response => response.json())
-                                                            .then(data => {
-                                                                if (data.success) {
-                                                                    alert("Facebook link saved successfully!");
-                                                                    location.reload(); // Reload to reflect the changes
-                                                                } else {
-                                                                    alert("Error saving the Facebook link: " + data.message);
-                                                                }
-                                                            })
-                                                            .catch(error => {
-                                                                console.error("Error:", error);
-                                                                alert("An error occurred while saving the Facebook link.");
-                                                            });
-                                                    }
-                                                }
-                                            </script>
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#editProfileModal">
+                                        Edit Profile
+                                    </button>
 
+                                    <!-- Profile Details -->
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-8">
+                                            <ul class="list-group list-group-flush text-start">
+                                                <li class="list-group-item"><strong>Name:</strong>
+                                                    <span
+                                                        id="profile_name"><?php echo htmlspecialchars($supplier['full_name'] ?? 'N/A'); ?></span>
+                                                </li>
+                                                <li class="list-group-item"><strong>Address:</strong>
+                                                    <span
+                                                        id="profile_address"><?php echo htmlspecialchars($supplier['address'] ?? 'N/A'); ?></span>
+                                                </li>
+                                                <li class="list-group-item"><strong>Contact:</strong>
+                                                    <span
+                                                        id="profile_contact"><?php echo htmlspecialchars($supplier['contact'] ?? 'N/A'); ?></span>
+                                                </li>
+                                                <li class="list-group-item"><strong>Email:</strong>
+                                                    <span
+                                                        id="profile_email"><?php echo htmlspecialchars($supplier['email'] ?? 'N/A'); ?></span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <strong>Facebook:</strong>
+                                                    <?php if (!empty($supplier['facebook'])): ?>
+                                                        <a href="<?php echo htmlspecialchars($supplier['facebook']); ?>"
+                                                            target="_blank">
+                                                            <?php echo htmlspecialchars($supplier['facebook']); ?>
+                                                        </a>
+                                                    <?php else: ?>
+                                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                            data-bs-target="#facebookModal">
+                                                            Add Facebook Link
+                                                        </button>
+                                                    <?php endif; ?>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                    <!--end::Body-->
-                                </form>
-                                <!--end::Form-->
+                                </div>
                             </div>
+
+                            <!-- Edit Profile Modal -->
+                            <div class="modal fade" id="editProfileModal" tabindex="-1"
+                                aria-labelledby="editProfileModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form id="editProfileForm">
+                                            <div class="modal-body">
+                                                <input type="hidden" name="user_id"
+                                                    value="<?php echo $supplier['user_id']; ?>">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Full Name</label>
+                                                    <input type="text" class="form-control" name="full_name"
+                                                        value="<?php echo htmlspecialchars($supplier['full_name']); ?>">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Address</label>
+                                                    <input type="text" class="form-control" name="address"
+                                                        value="<?php echo htmlspecialchars($supplier['address']); ?>">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Contact</label>
+                                                    <input type="text" class="form-control" name="contact"
+                                                        value="<?php echo htmlspecialchars($supplier['contact']); ?>">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Email</label>
+                                                    <input type="email" class="form-control" name="email"
+                                                        value="<?php echo htmlspecialchars($supplier['email']); ?>">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-success">Save Changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Facebook Link Modal -->
+                            <div class="modal fade" id="facebookModal" tabindex="-1"
+                                aria-labelledby="facebookModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="facebookModalLabel">Add Facebook Link</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="url" id="facebookLinkInput" class="form-control"
+                                                placeholder="Enter Facebook URL">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="saveFacebookLink()">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                document.getElementById("editProfileForm").addEventListener("submit", function (e) {
+                                    e.preventDefault();
+
+                                    const formData = new FormData(this);
+
+                                    fetch("update_profile.php", {
+                                        method: "POST",
+                                        body: formData
+                                    })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.success) {
+                                                alert("Profile updated successfully!");
+                                                document.getElementById("profile_name").innerText = formData.get("full_name");
+                                                document.getElementById("profile_address").innerText = formData.get("address");
+                                                document.getElementById("profile_contact").innerText = formData.get("contact");
+                                                document.getElementById("profile_email").innerText = formData.get("email");
+                                                document.querySelector("#editProfileModal .btn-close").click(); // Close modal
+                                            } else {
+                                                alert("Error updating profile: " + data.message);
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error("Error:", error);
+                                            alert("An error occurred while updating the profile.");
+                                        });
+                                });
+
+                                function saveFacebookLink() {
+                                    const link = document.getElementById("facebookLinkInput").value.trim();
+                                    if (link) {
+                                        fetch("save_facebook.php", {
+                                            method: "POST",
+                                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                                            body: "facebook=" + encodeURIComponent(link)
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data.success) {
+                                                    alert("Facebook link saved successfully!");
+                                                    location.reload();
+                                                } else {
+                                                    alert("Error: " + data.message);
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error("Error:", error);
+                                                alert("An error occurred while saving.");
+                                            });
+                                    }
+                                }
+                            </script>
+
+
                             <!--end::Quick Example-->
 
 

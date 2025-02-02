@@ -38,35 +38,55 @@
         </a> </div>
       <div class="card-body register-card-body">
         <p class="register-box-msg">Register a new membership</p>
-        <h1 class="d-flex justify-content-center align align-items-center" >Organizer</h1>
+        <h1 class="d-flex justify-content-center align align-items-center">Organizer</h1>
 
-        <form action="registration_functions/register_organizer.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <form action="registration_functions/register_organizer.php" method="post" enctype="multipart/form-data"
+          onsubmit="return validateForm()">
           <input type="hidden" name="user_type" id="user_type" value="organizer">
 
           <div class="input-group mb-1">
+            <label class="input-group-text" for="typeSelector">Type</label>
+            <select id="typeSelector" class="form-select">
+              <option value="company">Company</option>
+              <option value="freelance">Freelance</option>
+            </select>
+          </div>
+
+          <div class="input-group mb-1">
             <div class="form-floating">
-              <input id="fullName" name="name" type="text" class="form-control" placeholder="Full Name" value="<?php echo $_GET['firstname'] ?> <?php echo $_GET['middlename'] ?> <?php echo $_GET['lastname'] ?>" required>
+              <input id="company_name" name="company_name" type="text" class="form-control"
+                placeholder="Company Name / Freelance" required>
+              <label for="company_name">Company Name</label>
+            </div>
+          </div>
+
+          <div class="input-group mb-1">
+            <div class="form-floating">
+              <input id="fullName" name="name" type="text" class="form-control" placeholder="Full Name"
+                value="<?php echo $_GET['firstname'] ?> <?php echo $_GET['middlename'] ?> <?php echo $_GET['lastname'] ?>"
+                required>
               <label for="fullName">Full Name</label>
             </div>
           </div>
 
           <div class="input-group mb-1">
             <div class="form-floating">
-              <input id="birthday" name="birthday" type="date" class="form-control" placeholder="Birth Date" required>
+              <input id="birthday" name="birthday" type="date" class="form-control" placeholder="Birth Date" required
+                onchange="calculateAge()">
               <label for="birthday">Birth Date</label>
             </div>
           </div>
 
           <div class="input-group mb-1">
             <div class="form-floating">
-              <input id="age" name="age" type="number" class="form-control" placeholder="Age" required>
+              <input id="age" name="age" type="number" class="form-control" placeholder="Age" required readonly>
               <label for="age">Age</label>
             </div>
           </div>
 
           <div class="input-group mb-1">
             <select class="form-select" name="gender" id="gender" required>
-              <option selected disabled value="">Gender</option>
+              <option selected disabled value="">Sex</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
@@ -106,7 +126,8 @@
 
           <div class="input-group mb-1">
             <div class="form-floating">
-              <input id="email" name="email" type="email" class="form-control" placeholder="Email" value="<?php echo $_GET['email'] ?>" required>
+              <input id="email" name="email" type="email" class="form-control" placeholder="Email"
+                value="<?php echo $_GET['email'] ?>" required>
               <label for="email">Email</label>
             </div>
           </div>
@@ -117,11 +138,13 @@
               <label for="password">Password</label>
             </div>
           </div>
-          <div id="passwordError" class="text-danger invalid-feedback">Minimum passward is 8 maximum is 10 and it has to be alphanumeric.</div>
+          <div id="passwordError" class="text-danger invalid-feedback">Minimum passward is 8 maximum is 10 and it has to
+            be alphanumeric.</div>
 
           <div class="input-group mb-1">
             <div class="form-floating">
-              <input id="confirmPassword" name="confirm_password" type="password" class="form-control" placeholder="Confirm Password" required>
+              <input id="confirmPassword" name="confirm_password" type="password" class="form-control"
+                placeholder="Confirm Password" required>
               <label for="confirmPassword">Confirm Password</label>
             </div>
           </div>
@@ -148,7 +171,7 @@
             <label class="form-check-label" for="terms">I agree to the <a href="term.php">terms</a></label>
           </div>
 
-          <input type="hidden" name="user_plan_id" value="<?php echo $_GET['user_plan_id'] ?>" >
+          <input type="hidden" name="user_plan_id" value="<?php echo $_GET['user_plan_id'] ?>">
 
           <button type="submit" class="btn btn-primary">Sign Up</button>
         </form>
@@ -176,7 +199,7 @@
       scrollbarAutoHide: "leave",
       scrollbarClickScroll: true,
     };
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
       if (
         sidebarWrapper &&
@@ -249,6 +272,42 @@
     });
 
     confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+  </script>
+  <script>
+    document.getElementById("typeSelector").addEventListener("change", function () {
+      let companyInput = document.getElementById("company_name");
+
+      if (this.value === "freelance") {
+        companyInput.value = "Freelance";
+        companyInput.setAttribute("readonly", true);
+      } else {
+        companyInput.value = "";
+        companyInput.removeAttribute("readonly");
+      }
+    });
+  </script>
+  <script>
+    function calculateAge() {
+      let birthdate = document.getElementById("birthday").value;
+      let birthDateObj = new Date(birthdate);
+      let today = new Date();
+
+      let age = today.getFullYear() - birthDateObj.getFullYear();
+      let monthDiff = today.getMonth() - birthDateObj.getMonth();
+
+      // Adjust age if birthday hasn't occurred yet this year
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
+        age--;
+      }
+
+      if (age < 18) {
+        alert("You must be at least 18 years old to register.");
+        document.getElementById("birthday").value = ""; // Reset input
+        document.getElementById("age").value = "";
+      } else {
+        document.getElementById("age").value = age;
+      }
+    }
   </script>
 </body><!--end::Body-->
 

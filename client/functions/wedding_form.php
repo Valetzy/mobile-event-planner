@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'brides_maid_3', 'brides_maid_4', 'brides_maid_5', 'brides_maid_6', 
         'brides_maid_7', 'brides_maid_8', 'grooms_men_1', 'grooms_men_2', 
         'grooms_men_3', 'grooms_men_4', 'grooms_men_5', 'grooms_men_6', 'grooms_men_7', 'grooms_men_8',
-        'event_id', 'event_type', 'organizer_id', 'date_start', 'date_end', 'client_id'
+        'event_id', 'event_type', 'organizer_id', 'date_start', 'date_end', 'client_id', 'package_id'
     ];
 
     $data = [];
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 brides_maid_3, brides_maid_4, brides_maid_5, brides_maid_6, 
                 brides_maid_7, brides_maid_8, grooms_men_1, grooms_men_2, 
                 grooms_men_3, grooms_men_4, grooms_men_5, grooms_men_6, grooms_men_7, grooms_men_8, 
-                event_id, event_type, organizer_id
+                event_id, event_type, organizer_id, package_id
             ) VALUES (
                 '{$data['primary_contact_person']}', '{$data['contact_person']}', '{$data['email']}', '{$data['address']}', '{$data['bride_name']}', 
                 '{$data['brides_mother_name']}', '{$data['brides_father_name']}', '{$data['groom_name']}', '{$data['groom_mother_name']}', 
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 '{$data['brides_maid_3']}', '{$data['brides_maid_4']}', '{$data['brides_maid_5']}', '{$data['brides_maid_6']}', 
                 '{$data['brides_maid_7']}', '{$data['brides_maid_8']}', '{$data['grooms_men_1']}', '{$data['grooms_men_2']}', 
                 '{$data['grooms_men_3']}', '{$data['grooms_men_4']}', '{$data['grooms_men_5']}', '{$data['grooms_men_6']}', '{$data['grooms_men_7']}', '{$data['grooms_men_8']}', 
-                '{$data['event_id']}', '{$data['event_type']}', '{$data['organizer_id']}'
+                '{$data['event_id']}', '{$data['event_type']}', '{$data['organizer_id']}', '{$data['package_id']}'
             )";
 
     // Execute the query

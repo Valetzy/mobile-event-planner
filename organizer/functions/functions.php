@@ -245,15 +245,34 @@ function displayEventCards($conn)
                     <div class="card">
                         <img src="../uploads/products/' . $image_path . '" class="card-img-top" alt="Event Image" style="width: 100%; height: 250px; object-fit: cover;">
                         <div class="card-body d-flex flex-column justify-content-between" style="height: 100%;">
-                            <h2 class="text-center"> ' . $event_package_name . '</h2>
-                            <h3 class="text-center"> ' . $event_type . '</h3>
-                            <p class="text-center"> Theme: ' . $title . '</p>
-                            <p class="text-center"> Price: ₱' . $price . '</p>
-                            <p class="text-center"> Participants: ' . $participants . '</p>
-                            <button data-bs-toggle="modal" data-bs-target="#view_package_' . $event_id . '" class="btn btn-primary">View Packages</button>
+                            <h2 class="text-center">' . $event_package_name . '</h2>
+                            <button data-bs-toggle="modal" data-bs-target="#view_package_' . $event_id . '" class="btn btn-primary btn-sm w-100 mb-2">View Packages</button>
+                            <div class="col-lg-12 col-12 d-flex justify-content-center">
+                                <a href="edit_package.php?id=' . $event_id . '" class="btn btn-primary m-1" style="font-size: 13px;">Edit</a>
+                                <button data-bs-toggle="modal" data-bs-target="#deleteConfirm_' . $event_id . '" class="btn btn-danger m-1" style="font-size: 13px;">Delete</button>
+                            </div>
                         </div>
                     </div>
                 </div>';
+
+            echo '<div class="modal fade" id="deleteConfirm_' . $event_id . '" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete <b>' . $event_package_name . '</b>? This action cannot be undone.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <a href="delete_package.php?id=' . $event_id . '" class="btn btn-danger">Yes, Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+
 
             // Prepare the SQL query to select products for the current event
             $products_query = "SELECT ogp.product_name, ogp.product_photo FROM event_products AS ep INNER JOIN organizer_products AS ogp ON ogp.orga_products_id = ep.product_id WHERE event_id = ?";
@@ -273,7 +292,12 @@ function displayEventCards($conn)
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="card-body">';
+                                    <div class="card-body">
+                                    <h3 class="text-center"> ' . $event_type . '</h3>
+                            <p class="text-center"> Theme: ' . $title . '</p>
+                            <p class="text-center"> Price: ₱' . $price . '</p>
+                            <p class="text-center"> Participants: ' . $participants . '</p>';
+                                    
 
                 while ($product_row = $products_result->fetch_assoc()) {
                     $product_name = htmlspecialchars($product_row['product_name']);
@@ -297,6 +321,7 @@ function displayEventCards($conn)
                             </div>
                         </div>
                     </div>';
+                    
             }
         }
         echo '</div>'; // End the row

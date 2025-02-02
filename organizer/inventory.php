@@ -56,15 +56,10 @@ if (!isset($_SESSION['email'])) {
 
                                 if (isset($_SESSION['id'])) {
                                     $id = $_SESSION['id'];
-
-                                    // Define the number of records per page
                                     $recordsPerPage = 5;
-
-                                    // Get the current page from the URL, default to page 1 if not set
                                     $currentPage = isset($_GET['page']) ? (int) $_GET['page'] : 1;
                                     $offset = ($currentPage - 1) * $recordsPerPage;
 
-                                    // Prepare and execute the paginated query
                                     $stmt = $conn->prepare("SELECT * FROM organizer_products WHERE organizer_id = ? LIMIT ?, ?");
                                     $stmt->bind_param("iii", $id, $offset, $recordsPerPage);
                                     $stmt->execute();
@@ -72,35 +67,40 @@ if (!isset($_SESSION['email'])) {
 
                                     if ($result->num_rows > 0) {
                                         echo '
-                                                <table id="example2" class="table table-bordered table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width: 10px">#</th>
-                                                            <th>Product Name</th>
-                                                            <th>Pic</th>
-                                                            <th style="width: 200px">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>';
+                                        <table id="example2" class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Event Name</th>
+                                                    <th>Event Description</th>
+                                                    <th>Pic</th>
+                                                    <th style="width: 200px">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>';
 
-                                        while ($row = $result->fetch_assoc()) {
+                                                                while ($row = $result->fetch_assoc()) {
+                                                                    echo '
+                                            <tr class="align-middle">
+                                                <td>' . htmlspecialchars($row['orga_products_id']) . '</td>
+                                                <td>' . htmlspecialchars($row['product_name']) . '</td>
+                                                <td>' . htmlspecialchars($row['description']) . '</td>
+                                                <td><img src="../images/'.$row['product_photo'].'" alt="Product Image" style="width: 100px; height: 100px; object-fit: cover;"></td>
+                                                <td>
+                                                    <button class="btn btn-warning edit-btn" data-id="' . $row['orga_products_id'] . '" data-name="' . htmlspecialchars($row['product_name']) . '" data-description="' . htmlspecialchars($row['description']) . '">Edit</button>
+                                                    <button class="btn btn-danger delete-btn" data-id="'.$row['orga_products_id'] .'">Delete</button>
+                                                </td>
+                                            </tr>';
+                                                                }
+
                                             echo '
-                                                <tr class="align-middle">
-                                                    <td>' . htmlspecialchars($row['orga_products_id']) . '</td>
-                                                    <td>' . htmlspecialchars($row['product_name']) . '</td>
-                                                    <td><img src="../images/' . htmlspecialchars($row['product_photo']) . '" alt="Product Image" style="width: 100px; height: auto;"></td>
-                                                    <td><button class="btn btn-warning">Edit</button> <button class="btn btn-danger">Trash</button></td>
-                                                </tr>';
-                                        }
-
-                                        echo '
-                                                </tbody>
-                                            </table>';
+                                            </tbody>
+                                        </table>';
                                     } else {
                                         echo '<p>No products found.</p>';
                                     }
 
-                                    // Get total records count for pagination
+                                    // Pagination
                                     $countStmt = $conn->prepare("SELECT COUNT(*) as total FROM organizer_products WHERE organizer_id = ?");
                                     $countStmt->bind_param("i", $id);
                                     $countStmt->execute();
@@ -138,6 +138,101 @@ if (!isset($_SESSION['email'])) {
                             </div>
                         </div>
 
+                        <!-- Edit Modal -->
+                        <div class="modal fade" id="editProductModal" tabindex="-1"
+                            aria-labelledby="editProductModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form id="editProductForm" action="edit_product.php" method="POST" enctype="multipart/form-data">
+                                        <div class="modal-body">
+                                            <input type="hidden" name="product_id" id="editProductId">
+                                            <div class="mb-3">
+                                                <label for="editProductName" class="form-label">Event Name</label>
+                                                <input type="text" class="form-control" name="product_name"
+                                                    id="editProductName" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="editProductDescription" class="form-label">Event
+                                                    Description</label>
+                                                <textarea type="text" class="form-control" name="description"
+                                                    id="editProductDescription" required> </textarea>
+                                            </div>
+                                            <div class="col-sm-12 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Photo<span
+                                                            class="text-red">*</span></label>
+                                                    <input type="file" class="form-control" name="theme_photo"
+                                                        placeholder="Enter Product Name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Delete Confirmation Modal -->
+                        <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteProductModalLabel">Confirm Delete</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this event?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <a href="#" id="confirmDeleteBtn" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                        // Edit button click event
+                        document.querySelectorAll(".edit-btn").forEach(button => {
+                            button.addEventListener("click", function () {
+                                let productId = this.getAttribute("data-id");
+                                let productName = this.getAttribute("data-name");
+                                let productDescription = this.getAttribute("data-description");
+
+                                document.getElementById("editProductId").value = productId;
+                                document.getElementById("editProductName").value = productName;
+                                document.getElementById("editProductDescription").value = productDescription;
+
+                                let editModal = new bootstrap.Modal(document.getElementById("editProductModal"));
+                                editModal.show();
+                            });
+                        });
+
+                        // Delete button click event
+                        document.querySelectorAll(".delete-btn").forEach(button => {
+                            button.addEventListener("click", function () {
+                                let productId = this.getAttribute("data-id");
+                                document.getElementById("confirmDeleteBtn").setAttribute("href", "delete_event.php?id=" + productId);
+                                let deleteModal = new bootstrap.Modal(document.getElementById("deleteProductModal"));
+                                deleteModal.show();
+                            });
+                        });
+                    });
+
+                        </script>
+
+
 
                         <div class="modal fade" id="addpackage" tabindex="-1">
                             <div class="modal-dialog ">
@@ -173,11 +268,22 @@ if (!isset($_SESSION['email'])) {
 
                                                                     <div class="col-sm-12 col-12">
                                                                         <div class="mb-3">
-                                                                            <label class="form-label">Product Name<span
+                                                                            <label class="form-label">Event Name<span
                                                                                     class="text-red">*</span></label>
                                                                             <input type="text" class="form-control"
                                                                                 name="product_name" required
                                                                                 placeholder="Enter Product Name">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-sm-12 col-12">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label">Event
+                                                                                Description<span
+                                                                                    class="text-red">*</span></label>
+                                                                            <textarea type="text" class="form-control"
+                                                                                name="description" required
+                                                                                placeholder="Enter Event Description"></textarea>
                                                                         </div>
                                                                     </div>
 

@@ -1,10 +1,9 @@
 <div class="container">
+    
     <div class="row g-0">
-        <div class="col-1">
-            <div class="img-fluid h-100 w-100 rounded-start"
-                style="object-fit: cover; opacity: 0.7; background-color: #d4a762;"></div>
-        </div>
-        <div class="col-10">
+
+
+        <div class="col-12">
             <div class="border-bottom border-top border-primary bg-light py-5 px-4">
 
 
@@ -15,7 +14,7 @@
                 // Query to combine data from all forms
                 $query = "
                         SELECT 
-                                bcf.event_id, bcf.contact_name, bcf.relationship, bcf.contact_number, bcf.email, bcf.address, bcf.celebrant_name,
+                                bcf.package_id, bcf.event_id, bcf.contact_name, bcf.relationship, bcf.contact_number, bcf.email, bcf.address, bcf.celebrant_name,
                                 bcf.dob, bcf.age, bcf.gender, bcf.party_date, bcf.start_time, bcf.end_time, bcf.venue, bcf.venue_location,
                                 crf.client_form_id, crf.client_id, crf.organizer_id, crf.event_type, crf.status, crf.date_start, crf.date_end
                         FROM client_request_form AS crf
@@ -24,7 +23,7 @@
                         LEFT JOIN christening_form AS cf ON crf.client_form_id = cf.id
                         INNER JOIN event_types AS et ON crf.event_type = et.event_type_id
                         INNER JOIN users AS u ON crf.organizer_id = u.user_id
-                        WHERE crf.id = '$id' 
+                        WHERE crf.id = '$id'
                         AND (bcf.id IS NOT NULL OR wf.id IS NOT NULL OR cf.id IS NOT NULL)
                     ";
 
@@ -41,9 +40,10 @@
                         <div class="text-center">
                             <?php
                             $event_id = htmlspecialchars($row['event_id']);
+                            $package_id = htmlspecialchars($row['package_id']);
 
                             // Query to select the event
-                            $query_ev = "SELECT * FROM events WHERE event_id = $event_id";
+                            $query_ev = "SELECT * FROM events WHERE event_id = $package_id";
 
                             // Execute the query
                             $result_ev = mysqli_query($conn, $query_ev);
@@ -54,7 +54,7 @@
                                     echo '<h1 class="display-5 mb-5">' . htmlspecialchars($row_ev['event_package_name']) . '</h1>';
                                 }
                             } else {
-                                echo '<h1 class="display-5 mb-5">Customized Package Event</h1>';
+                                echo '<h1 class="display-5 mb-5">Costumize Package Event</h1>';
                             }
                             ?>
                         </div>
@@ -83,14 +83,14 @@
                                         <input type="text" class="form-control" id="relationship" name="relationship" disabled
                                             value="<?php echo htmlspecialchars($row['relationship']); ?>"
                                             placeholder="Relationship" required>
-                                        <label for="relationship">Relationship to the Celebrant</label>
+                                        <label for="relationship">Relationship</label>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="contact_number" name="contact_number" disabled
-                                            value="<?php echo htmlspecialchars($row['contact_number']); ?>"
+                                        <input type="number" class="form-control" id="contact_number" name="contact_number"
+                                            disabled value="<?php echo htmlspecialchars($row['contact_number']); ?>"
                                             placeholder="Contact Number" required>
                                         <label for="contact_number">Contact Number</label>
                                     </div>
@@ -98,8 +98,8 @@
 
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" disabled
-                                            value="<?php echo htmlspecialchars($row['email']); ?>" required>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                            disabled value="<?php echo htmlspecialchars($row['email']); ?>" required>
                                         <label for="email">Email</label>
                                     </div>
                                 </div>
@@ -107,8 +107,8 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="address" name="address"
-                                            value="<?php echo htmlspecialchars($row['address']); ?>" placeholder="Address" disabled
-                                            required>
+                                            value="<?php echo htmlspecialchars($row['address']); ?>" placeholder="Address"
+                                            disabled required>
                                         <label for="address">Address</label>
                                     </div>
                                 </div>
@@ -119,8 +119,8 @@
 
                                 <div class="col-lg-12 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="celebrant_name" name="celebrant_name" disabled
-                                            value="<?php echo htmlspecialchars($row['celebrant_name']); ?>"
+                                        <input type="text" class="form-control" id="celebrant_name" name="celebrant_name"
+                                            disabled value="<?php echo htmlspecialchars($row['celebrant_name']); ?>"
                                             placeholder="Celebrant Name" required>
                                         <label for="celebrant_name">Full Name of the Celebrant</label>
                                     </div>
@@ -128,8 +128,8 @@
 
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth" disabled
-                                            value="<?php echo htmlspecialchars($row['dob']); ?>" required>
+                                        <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth"
+                                            disabled value="<?php echo htmlspecialchars($row['dob']); ?>" required>
                                         <label for="dob">Date of Birth</label>
                                     </div>
                                 </div>
@@ -175,22 +175,6 @@
                                     </div>
                                 </div>
 
-                                
-
-                                <?php
-                                // Assuming $status holds the status of the item
-                                $status = $_GET['status'];
-                                if ($status == "pending") {
-                                ?>
-                                    <div class="col-12 text-center d-flex justify-content-end">
-                                        <a href="functions/approved.php?id=<?php echo $id; ?>" type="submit" class="btn btn-primary px-5 py-3 rounded-pill m-2">Approved</a>
-                                        <a href="functions/denied.php?id=<?php echo $id; ?>" type="submit" class="btn btn-primary px-5 py-3 rounded-pill m-2">Cancel</a>
-                                    </div>
-                                <?php
-                                }
-                                ?>
-
-
                                 <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($row['event_id']); ?>">
                                 <input type="hidden" name="event_type"
                                     value="<?php echo htmlspecialchars($row['event_type']); ?>">
@@ -214,9 +198,231 @@
 
             </div>
         </div>
-        <div class="col-1">
-            <div class="img-fluid h-100 w-100 rounded-end"
-                style="object-fit: cover; opacity: 0.7; background-color: #d4a762;"></div>
+
+        <?php
+        if ($package_id > 0) {
+            $query_id = $package_id;
+            
+            ?>
+            <div class="col-12">
+            <div class="card" style="background-color: #FFFFFFFF;">
+                <div class="card-body">
+                    <?php
+                    $sql = "SELECT ot.event_name, e.supplier_location, s.business_name, e.supplier_venue, e.participants, e.price, e.theme, e.theme_photo, ot.event_name, e.event_package_name, e.event_id 
+                    FROM events AS e 
+                    INNER JOIN event_types AS ot ON ot.event_type_id = e.event_type
+                    INNER JOIN supplier AS s ON s.supplier_id = e.supplier_venue
+                    WHERE e.event_id = '$query_id'";
+
+                    $result = mysqli_query($conn, $sql);
+
+                    $disable_button = mysqli_num_rows($result) === 0;
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $participants = $row['participants'];
+                            $price = $row['price'];
+                            $event_package_name = $row['event_package_name'];
+                            $event_id = $row['event_id'];
+                            $theme = $row['theme'];
+                            $supplier_venue = $row['supplier_venue'];
+                            $business_name = $row['business_name'];
+                            $supplier_location = $row['supplier_location'];
+                            $event_name = $row['event_name'];
+                            $theme_photo = $row['theme_photo'];
+                            ?>
+
+                            <div class="row g-4 form">
+
+
+                                <center>
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="overflow-hidden rounded" style="height: 300px;">
+                                            <img src="../uploads/products/<?= $theme_photo ?>"
+                                                class="img-fluid w-100 h-100 object-cover" alt="">
+                                        </div>
+                                    </div>
+                                </center>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_package_name"
+                                            name="event_package_name" disabled value="<?php echo $event_package_name; ?>"
+                                            placeholder="Full Name" required>
+                                        <label for="event_package_name">Package Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_name" name="event_name" disabled
+                                            value="<?php echo $event_name; ?>" placeholder="Full Name" required>
+                                        <label for="event_name">Event Type</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="theme" name="theme" disabled
+                                            value="<?php echo $theme; ?>" placeholder="Full Name" required>
+                                        <label for="theme">Theme</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="participants" name="participants" disabled
+                                            value="<?php echo $participants; ?>" placeholder="Full Name" required>
+                                        <label for="participants">Participants</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="price" name="price" disabled
+                                            value="<?php echo $price; ?>" placeholder="Full Name" required>
+                                        <label for="price">Price</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_name" name="event_name" disabled
+                                            value="<?php echo $event_name; ?>" placeholder="Full Name" required>
+                                        <label for="event_name">Event Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="supplier_location" name="supplier_location"
+                                            disabled value="<?php echo $supplier_location; ?>" placeholder="Full Name" required>
+                                        <label for="supplier_location">Location</label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <?php
+
+                        }
+                    } else {
+                        echo 'No events found.';
+                    }
+                    ?>
+                </div>
+            </div>
         </div>
+
+            <?php 
+        } else {
+            $query_id = $event_id;
+
+            ?>
+            <div class="col-12">
+            <div class="card" style="background-color: #FFFFFFFF;">
+                <div class="card-body">
+                    <?php
+                    $sql = "SELECT cce.participants, cce.budget, cce.event_package_name, cce.theme, cce.supplier_venue, cce.reference_photo, cce.supplier_location, s.business_name, et.event_name
+                    FROM client_customized_event AS cce
+                    INNER JOIN event_types AS et ON et.event_type_id = cce.event_type
+                    INNER JOIN supplier AS s ON s.supplier_id = cce.supplier_venue
+                    WHERE cce.id = '$query_id'";
+
+                    $result = mysqli_query($conn, $sql);
+
+                    $disable_button = mysqli_num_rows($result) === 0;
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $participants = $row['participants'];
+                            $price = $row['budget'];
+                            $event_package_name = $row['event_package_name'];
+                            $theme = $row['theme'];
+                            $supplier_venue = $row['supplier_venue'];
+                            $business_name = $row['business_name'];
+                            $supplier_location = $row['supplier_location'];
+                            $theme_photo = $row['reference_photo'];
+                            $event_name = $row['event_name'];
+                            ?>
+
+                            <div class="row g-4 form">
+
+
+                                <center>
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="overflow-hidden rounded" style="height: 300px;">
+                                            <img src="../uploads/client/<?php echo $theme_photo; ?>"
+                                                class="img-fluid w-100 h-100 object-cover" alt="">
+                                        </div>
+                                    </div>
+                                </center>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_package_name"
+                                            name="event_package_name" disabled value="<?php echo $event_package_name; ?>"
+                                            placeholder="Full Name" required>
+                                        <label for="event_package_name">Package Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_name" name="event_name" disabled
+                                            value="<?php echo $event_name; ?>" placeholder="Full Name" required>
+                                        <label for="event_name">Event Type</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="theme" name="theme" disabled
+                                            value="<?php echo $theme; ?>" placeholder="Full Name" required>
+                                        <label for="theme">Theme</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="participants" name="participants" disabled
+                                            value="<?php echo $participants; ?>" placeholder="Full Name" required>
+                                        <label for="participants">Participants</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="price" name="price" disabled
+                                            value="<?php echo $price; ?>" placeholder="Full Name" required>
+                                        <label for="price">Price</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_name" name="event_name" disabled
+                                            value="<?php echo $business_name; ?>" placeholder="Full Name" required>
+                                        <label for="event_name">Event Venue</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="supplier_location" name="supplier_location"
+                                            disabled value="<?php echo $supplier_location; ?>" placeholder="Full Name" required>
+                                        <label for="supplier_location">Location</label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <?php
+
+                        }
+                    } else {
+                        echo 'No events found.';
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+            <?php
+        }
+        ?>
+
+        
+
+
     </div>
 </div>

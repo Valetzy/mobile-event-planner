@@ -279,6 +279,7 @@
                         <input type="hidden" name="date_start" value="<?php echo $_GET['date_start'] ?>">
                         <input type="hidden" name="date_end" value="<?php echo $_GET['date_end'] ?>">
                         <input type="hidden" name="client_id" value="<?php echo $_SESSION['id'] ?>">
+                        <input type="hidden" name="package_id" value="<?php echo $_GET['package_id']; ?>">
                     </div>
                 </form>
             </div>

@@ -7,6 +7,60 @@ if (!isset($_SESSION['email'])) {
   exit();
 }
 
+function UsersData($tablename, $user_type, $color) {
+  include '../connection/conn.php'; // Make sure you have your database connection
+
+  $sql = "SELECT COUNT(*) as total FROM $tablename WHERE user_type = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("s", $user_type);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $row = $result->fetch_assoc();
+  $count = $row['total'];
+
+  echo '<div class="col-lg-4 col-6"> <!--begin::Small Box Widget 1-->
+            <div class="small-box text-bg-'.$color.'">
+              <div class="inner">
+                <h3>' . $count . '</h3>
+                <p>' . ucfirst($user_type) . '</p>
+              </div>
+            </div> <!--end::Small Box Widget 1-->
+        </div> <!--end::Col-->';
+}
+
+function userdataStatus($table1, $table2, $status, $color) {
+  include '../connection/conn.php'; // Database connection
+
+  // Query to count pending users
+  $sql1 = "SELECT COUNT(*) as total FROM $table1 WHERE status = ?";
+  $stmt1 = $conn->prepare($sql1);
+  $stmt1->bind_param("s", $status);
+  $stmt1->execute();
+  $result1 = $stmt1->get_result();
+  $row1 = $result1->fetch_assoc();
+  $count1 = $row1['total'];
+
+  // Query to count pending suppliers
+  $sql2 = "SELECT COUNT(*) as total FROM $table2 WHERE status = ?";
+  $stmt2 = $conn->prepare($sql2);
+  $stmt2->bind_param("s", $status);
+  $stmt2->execute();
+  $result2 = $stmt2->get_result();
+  $row2 = $result2->fetch_assoc();
+  $count2 = $row2['total'];
+
+  // Total count
+  $totalCount = $count1 + $count2;
+
+  echo '<div class="col-lg-4 col-6"> <!--begin::Small Box Widget 1-->
+            <div class="small-box text-bg-' . htmlspecialchars($color) . '"> 
+              <div class="inner">
+                <h3>' . $totalCount . '</h3>
+                <p>' . ucfirst($status) . '</p>
+              </div>
+            </div> <!--end::Small Box Widget 1-->
+        </div> <!--end::Col-->';
+}
 
 
 ?>
@@ -46,62 +100,18 @@ if (!isset($_SESSION['email'])) {
         <div class="container-fluid"> <!--begin::Row-->
           <div class="row"> <!--begin::Col-->
 
-            <div class="col-lg-4 col-6"> <!--begin::Small Box Widget 1-->
-              <div class="small-box text-bg-dark">
-                <div class="inner">
-                  <h3>150</h3>
-                  <p>Client</p>
-                </div>
-              </div> <!--end::Small Box Widget 1-->
-            </div> <!--end::Col-->
+            <?php UsersData("users", "client", "dark"); ?>
 
-            <div class="col-lg-4 col-6"> <!--begin::Small Box Widget 2-->
-              <div class="small-box text-bg-info">
-                <div class="inner">
-                  <h3>53</h3>
-                  <p>Organizer</p>
-                </div>
-              </div> <!--end::Small Box Widget 2-->
-            </div> <!--end::Col-->
+            <?php UsersData("users", "organizer", "info"); ?>
 
-            <div class="col-lg-4 col-6"> <!--begin::Small Box Widget 4-->
-              <div class="small-box text-bg-secondary">
-                <div class="inner">
-                  <h3>65</h3>
-                  <p>Supplier</p>
-                </div>
-              </div> <!--end::Small Box Widget 4-->
-            </div> <!--end::Col-->
+            <?php UsersData("supplier", "supplier", "secondary"); ?>
 
           </div> <!--end::Row--> <!--begin::Row-->
           <div class="row"> <!--begin::Col-->
 
-            <div class="col-lg-4 col-6"> <!--begin::Small Box Widget 1-->
-              <div class="small-box text-bg-primary">
-                <div class="inner">
-                  <h3>150</h3>
-                  <p>Pending</p>
-                </div>
-              </div> <!--end::Small Box Widget 1-->
-            </div> <!--end::Col-->
-
-            <div class="col-lg-4 col-6"> <!--begin::Small Box Widget 2-->
-              <div class="small-box text-bg-success">
-                <div class="inner">
-                  <h3>53</h3>
-                  <p>Approved</p>
-                </div>
-              </div> <!--end::Small Box Widget 2-->
-            </div> <!--end::Col-->
-
-            <div class="col-lg-4 col-6"> <!--begin::Small Box Widget 4-->
-              <div class="small-box text-bg-danger">
-                <div class="inner">
-                  <h3>65</h3>
-                  <p>Denied</p>
-                </div>
-              </div> <!--end::Small Box Widget 4-->
-            </div> <!--end::Col-->
+            <?php userdataStatus("users", "supplier", "pending", "primary"); ?>
+            <?php userdataStatus("users", "supplier", "approved", "success"); ?>
+            <?php userdataStatus("users", "supplier", "denied", "danger"); ?>
 
           </div> <!--end::Row--> <!--begin::Row-->
         </div> <!--end::Container-->

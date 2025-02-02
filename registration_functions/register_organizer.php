@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirm_password = $_POST['confirm_password'];
     $terms = isset($_POST['terms']);
     $user_plan_id = $_POST['user_plan_id'];
+    $company_name = $_POST['company_name'];
 
     // Validate required fields
     if (empty($user_plan_id) || empty($user_plan_id) || empty($birthday) || empty($age) || empty($gender) || empty($civil_status) || empty($address) || empty($contact) || empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
@@ -76,13 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insert data into the database
-    $sql = "INSERT INTO users (user_plan_id, user_type, full_name, birthday, age, gender, civil_status, address, contact, username, email, password, profile_pic, valid_id) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO users (user_plan_id, user_type, full_name, birthday, age, gender, civil_status, address, contact, username, email, password, profile_pic, valid_id, company_name) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
     if ($stmt) {
         $stmt->bind_param(
-            "ssssisssisssss",
+            "ssssisssissssss",
             $user_plan_id,
             $user_type,
             $name,
@@ -96,7 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email,
             $hashed_password,
             $profile_picture_path,
-            $valid_id_path
+            $valid_id_path,
+            $company_name
         );
 
         if ($stmt->execute()) {

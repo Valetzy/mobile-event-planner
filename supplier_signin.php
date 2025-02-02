@@ -146,8 +146,6 @@
             </div>
           </div>
         </form>
-
-
         <p class="mb-0"> <a href="index.php" class="link-primary text-center">
             I already have a membership
           </a> </p>

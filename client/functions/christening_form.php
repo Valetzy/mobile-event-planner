@@ -22,17 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $date_start = mysqli_real_escape_string($conn, $_POST['date_start']);
     $date_end = mysqli_real_escape_string($conn, $_POST['date_end']);
     $client_id = mysqli_real_escape_string($conn, $_POST['client_id']);
+    $package_id = mysqli_real_escape_string($conn, $_POST['package_id']);
 
     // Insert into christening_form table
     $insert_query = "
         INSERT INTO christening_form (
             full_name, relationship, contact_number, email, address,
             baby_name, dob, gender, baptism_date, baptism_time,
-            reception_date, reception_time, event_id
+            reception_date, reception_time, event_id, package_id
         ) VALUES (
             '$full_name', '$relationship', '$contact_number', '$email', '$address',
             '$baby_name', '$dob', '$gender', '$baptism_date', '$baptism_time',
-            '$reception_date', '$reception_time', '$event_id'
+            '$reception_date', '$reception_time', '$event_id', '$package_id'
         )
     ";
 

@@ -14,6 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $client_id = $_POST['client_id'];
     $date_start = $_POST['date_start'];
     $date_end = $_POST['date_end'];
+    $venue = $_POST['venue'];
+    $location = $_POST['location'];
+    $package_id = 0;
 
     // Handle file upload for reference_photo
     $reference_photo = $_FILES['reference_photo'];
@@ -24,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
             // Prepare SQL query to insert form data
             $stmt = $conn->prepare("INSERT INTO client_customized_event 
-                (event_package_name, event_type, theme, participants, budget, reference_photo, add_ons, organizer_id, client_id) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssisissii", $event_package_name, $event_type , $theme, $participants, $budget, $photo_name, $add_ons, $organizer_id ,$client_id);
+                (event_package_name, event_type, theme, participants, budget, reference_photo, add_ons, organizer_id, client_id, supplier_venue, supplier_location, package_id) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssissiissi", $event_package_name, $event_type , $theme, $participants, $budget, $photo_name, $add_ons, $organizer_id ,$client_id, $venue, $location, $package_id);
 
             // Execute the insertion for the event details
             if ($stmt->execute()) {
@@ -42,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Redirect to client_form.php with the new package ID as a query parameter
                 echo "<script>
                         alert('Event added successfully!');
-                        window.location.href = '../client_form.php?event_id=$last_inserted_id&event_type=$event_type&organizer_id=$organizer_id&date_start=$date_start&date_end=$date_end';
+                        window.location.href = '../client_form.php?package_id=$package_id&event_id=$last_inserted_id&event_type=$event_type&organizer_id=$organizer_id&date_start=$date_start&date_end=$date_end';
                       </script>";
             } else {
                 echo "<script>alert('Failed to add event!'); window.history.back();</script>";

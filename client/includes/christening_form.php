@@ -84,11 +84,11 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="form-floating mb-3">
                                 <select class="form-control" id="floatingGender" name="gender" required>
-                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="" disabled selected>Select Sex</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
-                                <label for="floatingGender">Gender</label>
+                                <label for="floatingGender">Sex</label>
                             </div>
                         </div>
 
@@ -133,6 +133,7 @@
                         <input type="hidden" name="date_start" value="<?php echo $_GET['date_start'] ?>">
                         <input type="hidden" name="date_end" value="<?php echo $_GET['date_end'] ?>">
                         <input type="hidden" name="client_id" value="<?php echo $_SESSION['id'] ?>">
+                        <input type="hidden" name="package_id" value="<?php echo $_GET['package_id']; ?>">
 
                         <div class="col-6 text-center">
                             <a href="javascript:history.back()" class="btn btn-secondary py-3 rounded-pill">Cancel</a>

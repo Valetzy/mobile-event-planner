@@ -24,10 +24,12 @@
                   class="nav-icon bi bi-person-fill-exclamation"></i>
                 <p>Pending </p>
               </a> </li>
-            <li class="nav-item"> <a href="client_approved.php" class="nav-link"> <i class="nav-icon bi bi-person-fill-check"></i>
+            <li class="nav-item"> <a href="client_approved.php" class="nav-link"> <i
+                  class="nav-icon bi bi-person-fill-check"></i>
                 <p>Approved </p>
               </a> </li>
-            <li class="nav-item"> <a href="client_denied.php" class="nav-link"> <i class="nav-icon bi bi-person-fill-slash"></i>
+            <li class="nav-item"> <a href="client_denied.php" class="nav-link"> <i
+                  class="nav-icon bi bi-person-fill-slash"></i>
                 <p>Denied </p>
               </a> </li>
           </ul>
@@ -45,10 +47,12 @@
                   class="nav-icon bi bi-person-fill-exclamation"></i>
                 <p>Pending </p>
               </a> </li>
-            <li class="nav-item"> <a href="organizer_approved.php" class="nav-link"> <i class="nav-icon bi bi-person-fill-check"></i>
+            <li class="nav-item"> <a href="organizer_approved.php" class="nav-link"> <i
+                  class="nav-icon bi bi-person-fill-check"></i>
                 <p>Approved </p>
               </a> </li>
-            <li class="nav-item"> <a href="organizer_denied.php" class="nav-link"> <i class="nav-icon bi bi-person-fill-slash"></i>
+            <li class="nav-item"> <a href="organizer_denied.php" class="nav-link"> <i
+                  class="nav-icon bi bi-person-fill-slash"></i>
                 <p>Denied </p>
               </a> </li>
           </ul>
@@ -66,12 +70,40 @@
                   class="nav-icon bi bi-person-fill-exclamation"></i>
                 <p>Pending </p>
               </a> </li>
-            <li class="nav-item"> <a href="supplier_approved.php" class="nav-link"> <i class="nav-icon bi bi-person-fill-check"></i>
+            <li class="nav-item"> <a href="supplier_approved.php" class="nav-link"> <i
+                  class="nav-icon bi bi-person-fill-check"></i>
                 <p>Approved </p>
               </a> </li>
-            <li class="nav-item"> <a href="supplier_denied.php" class="nav-link"> <i class="nav-icon bi bi-person-fill-slash"></i>
+            <li class="nav-item"> <a href="supplier_denied.php" class="nav-link"> <i
+                  class="nav-icon bi bi-person-fill-slash"></i>
                 <p>Denied </p>
               </a> </li>
+          </ul>
+        </li>
+
+        <li class="nav-item menu"> <a href="#" class="nav-link"> <i class="nav-icon bi bi-clipboard"></i>
+            <p>
+              Reports
+              <i class="nav-arrow bi bi-chevron-right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item"> <a href="oraganizers_done_events.php" class="nav-link"> <i
+                  class="nav-icon bi bi-calendar-check"></i>
+                <p>Done Events </p>
+              </a> </li>
+            <li class="nav-item"> <a href="client_request.php" class="nav-link"> <i
+                  class="nav-icon bi bi-person-lines-fill"></i>
+                <p>Clients request </p>
+              </a> </li>
+            <li class="nav-item"> <a href="organizer_packages.php" class="nav-link"> <i
+                  class="nav-icon bi bi-box-seam   "></i>
+                <p>Organizers Packages</p>
+              </a> </li>
+            <!-- <li class="nav-item"> <a href="supplier_request.php" class="nav-link"> <i
+                  class="nav-icon bi bi-box-seam   "></i>
+                <p>Supplier Request</p>
+              </a> </li> -->
           </ul>
         </li>
 

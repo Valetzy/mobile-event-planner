@@ -54,21 +54,22 @@
 
           <div class="input-group mb-1">
             <div class="form-floating">
-              <input id="birthday" name="birthday" type="date" class="form-control" placeholder="Birth Date" required>
+              <input id="birthday" name="birthday" type="date" class="form-control" placeholder="Birth Date" required
+                onchange="calculateAge()">
               <label for="birthday">Birth Date</label>
             </div>
           </div>
 
           <div class="input-group mb-1">
             <div class="form-floating">
-              <input id="age" name="age" type="number" class="form-control" placeholder="Age" required>
+              <input id="age" name="age" type="number" class="form-control" placeholder="Age" required readonly>
               <label for="age">Age</label>
             </div>
           </div>
 
           <div class="input-group mb-1">
             <select class="form-select" name="gender" id="gender" required>
-              <option selected disabled value="">Gender</option>
+              <option selected disabled value="">Sex</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
@@ -251,6 +252,29 @@
     });
 
     confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+  </script>
+  <script>
+    function calculateAge() {
+      let birthdate = document.getElementById("birthday").value;
+      let birthDateObj = new Date(birthdate);
+      let today = new Date();
+
+      let age = today.getFullYear() - birthDateObj.getFullYear();
+      let monthDiff = today.getMonth() - birthDateObj.getMonth();
+
+      // Adjust age if birthday hasn't occurred yet this year
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
+        age--;
+      }
+
+      if (age < 18) {
+        alert("You must be at least 18 years old to register.");
+        document.getElementById("birthday").value = ""; // Reset input
+        document.getElementById("age").value = "";
+      } else {
+        document.getElementById("age").value = age;
+      }
+    }
   </script>
 </body><!--end::Body-->
 

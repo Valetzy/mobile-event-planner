@@ -9,6 +9,7 @@
             // Sanitize and validate the input
             $product_name = trim($_POST['product_name']);
             $event_type = trim($_POST['event_type']);
+            $description = trim($_POST['description']);
 
             if (empty($product_name)) {
                 die('Product name is required.');
@@ -37,11 +38,11 @@
                 // Move the uploaded file to the designated directory
                 if (move_uploaded_file($fileTmpName, $uploadDir . $newFileName)) {
                     // Insert the product data into the database
-                    $sql = "INSERT INTO organizer_products (product_name, product_photo, organizer_id, event_types) VALUES (?, ?, ?, ?)";
+                    $sql = "INSERT INTO organizer_products (product_name, product_photo, organizer_id, event_types, description) VALUES (?, ?, ?, ?, ?)";
                     $stmt = $conn->prepare($sql);
 
                     if ($stmt) {
-                        $stmt->bind_param("ssii", $product_name, $newFileName, $id, $event_type);
+                        $stmt->bind_param("ssiis", $product_name, $newFileName, $id, $event_type, $description);
 
                         if ($stmt->execute()) {
 

@@ -19,8 +19,8 @@
                                                 <div class="mb-3">
                                                     <label class="form-label">Event Name<span
                                                             class="text-red">*</span></label>
-                                                    <input type="text" class="form-control" name="event_package_name" required
-                                                        placeholder="Enter Event Name">
+                                                    <input type="text" class="form-control" name="event_package_name"
+                                                        required placeholder="Enter Event Name">
                                                 </div>
                                             </div>
 
@@ -85,6 +85,63 @@
                                                         placeholder="Enter Product Name">
                                                 </div>
                                             </div>
+
+                                            <?php
+                                            // Check if the session variable is set
+                                            if (isset($_SESSION['id'])) {
+                                                $query_products = "SELECT * FROM supplier WHERE supplier_type = 'venue'";
+                                                $stmt_products = $conn->prepare($query_products);
+                                                $stmt_products->execute();
+                                                $products_result = $stmt_products->get_result();
+                                                ?>
+                                                <div class="col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Event Venue</label>
+                                                        <div class="input-group">
+                                                            <select class="form-control" name="venue" id="venue"
+                                                                onchange="updateAddress()">
+                                                                <option selected disabled>Choose an Option</option>
+                                                                <?php while ($products = $products_result->fetch_assoc()) { ?>
+                                                                    <option
+                                                                        value="<?php echo htmlspecialchars($products['supplier_id']); ?>"
+                                                                        data-address="<?php echo htmlspecialchars($products['address']); ?>">
+                                                                        <?php echo htmlspecialchars($products['business_name']); ?>
+                                                                    </option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                            ?>
+
+                                            <div class="col-sm-6 col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Location <span
+                                                            class="text-red">*</span></label>
+                                                    <input type="text" class="form-control" name="location"
+                                                        id="location" required placeholder="Supplier Address">
+                                                </div>
+                                            </div>
+
+                                            <script>
+                                                function updateAddress() {
+                                                    var venueSelect = document.getElementById("venue");
+                                                    var addressInput = document.getElementById("location");
+
+                                                    var selectedOption = venueSelect.options[venueSelect.selectedIndex];
+                                                    var address = selectedOption.getAttribute("data-address");
+
+                                                    if (address) {
+                                                        addressInput.value = address;
+                                                    } else {
+                                                        addressInput.value = "";
+                                                    }
+                                                }
+                                            </script>
+
+
                                             <label class="form-label">Add Products Items<span
                                                     class="text-red">*</span></label>
                                             <div style="max-height: 350px; overflow-y: auto;">

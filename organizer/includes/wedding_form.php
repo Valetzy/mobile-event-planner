@@ -1,10 +1,8 @@
 <div class="container">
+    
     <div class="row g-0">
-        <div class="col-1">
-            <div class="img-fluid h-100 w-100 rounded-start"
-                style="object-fit: cover; opacity: 0.7; background-color: #d4a762;"></div>
-        </div>
-        <div class="col-10">
+       
+        <div class="col-12">
             <div class="border-bottom border-top border-primary bg-light py-5 px-4">
 
 
@@ -15,7 +13,7 @@
                 // Query to combine data from all forms
                 $query = "
                         SELECT 
-                                wf.event_id, wf.primary_contact_person, wf.contact_person, 
+                                wf.package_id, wf.event_id, wf.primary_contact_person, wf.contact_person, 
                                 wf.email, wf.address, wf.bride_name, wf.brides_mother_name, 
                                 wf.brides_father_name, wf.groom_name, wf.groom_mother_name, 
                                 wf.groom_father_name, wf.wedding_date, wf.ceremony_start, 
@@ -54,9 +52,10 @@
                         <div class="text-center">
                             <?php
                             $event_id = htmlspecialchars($row['event_id']);
+                            $package_id = htmlspecialchars($row['package_id']);
 
                             // Query to select the event
-                            $query_ev = "SELECT * FROM events WHERE event_id = $event_id";
+                            $query_ev = "SELECT * FROM events WHERE event_id = $package_id";
 
                             // Execute the query
                             $result_ev = mysqli_query($conn, $query_ev);
@@ -67,11 +66,10 @@
                                     echo '<h1 class="display-5 mb-5">' . htmlspecialchars($row_ev['event_package_name']) . '</h1>';
                                 }
                             } else {
-                                echo '<h1 class="display-5 mb-5">Customized Package Event</h1>';
+                                echo '<h1 class="display-5 mb-5">Costumize Package Event</h1>';
                             }
                             ?>
                         </div>
-
 
 
 
@@ -84,7 +82,7 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="primary_contact_person"
-                                            value="<?php echo $_SESSION['name'] ?>" placeholder="name@example.com" required disabled>
+                                            value="<?php echo $_SESSION['name'] ?>" placeholder="name@example.com" required>
                                         <label for="floatingInput">Primary Contact Person</label>
                                     </div>
                                 </div>
@@ -92,7 +90,7 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-floating mb-3">
                                         <input type="number" class="form-control" id="floatingInput" name="contact_person"
-                                            value="<?php echo $_SESSION['contact'] ?>" placeholder="name@example.com" required disabled>
+                                            value="<?php echo $_SESSION['contact'] ?>" placeholder="name@example.com" required>
                                         <label for="floatingInput">Contact Number</label>
                                     </div>
                                 </div>
@@ -100,7 +98,7 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-floating mb-3">
                                         <input type="email" class="form-control" id="floatingInput" name="email"
-                                            value="<?php echo $_SESSION['email'] ?>" placeholder="name@example.com" required disabled>
+                                            value="<?php echo $_SESSION['email'] ?>" placeholder="name@example.com" required>
                                         <label for="floatingInput">Email Address</label>
                                     </div>
                                 </div>
@@ -108,7 +106,7 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="address"
-                                            value="<?php echo $_SESSION['address'] ?>" placeholder="name@example.com" required disabled>
+                                            value="<?php echo $_SESSION['address'] ?>" placeholder="name@example.com" required>
                                         <label for="floatingInput">Address</label>
                                     </div>
                                 </div>
@@ -120,7 +118,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="bride_name"
                                             value="<?php echo htmlspecialchars($row['bride_name']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Name of Bride</label>
                                     </div>
                                 </div>
@@ -129,7 +127,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="brides_mother_name"
                                             value="<?php echo htmlspecialchars($row['brides_mother_name']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Bride's Mother Name</label>
                                     </div>
                                 </div>
@@ -138,7 +136,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="brides_father_name"
                                             value="<?php echo htmlspecialchars($row['brides_father_name']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Bride's Father Name</label>
                                     </div>
                                 </div>
@@ -150,7 +148,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="groom_name"
                                             value="<?php echo htmlspecialchars($row['groom_name']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Name of Groom</label>
                                     </div>
                                 </div>
@@ -159,7 +157,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="groom_mother_name"
                                             value="<?php echo htmlspecialchars($row['groom_mother_name']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Groom's Mother Name</label>
                                     </div>
                                 </div>
@@ -168,13 +166,11 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="groom_father_name"
                                             value="<?php echo htmlspecialchars($row['groom_father_name']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Groom's Father Name</label>
                                     </div>
                                 </div>
 
-
-                                
 
                                 <p style="font-size: 1.5rem; font-weight: bold; font-family: italic; margin-bottom: -10px; ">
                                     Wedding Party Information: </p>
@@ -186,7 +182,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="maid_honor_name"
                                             value="<?php echo htmlspecialchars($row['maid_honor_name']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Maid of Honor Name:</label>
                                     </div>
                                 </div>
@@ -195,7 +191,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="best_man_name"
                                             value="<?php echo htmlspecialchars($row['best_man_name']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Best Man Name:</label>
                                     </div>
                                 </div>
@@ -207,7 +203,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="brides_maid_1"
                                             value="<?php echo htmlspecialchars($row['brides_maid_1']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput"> Brides Maid 1</label>
                                     </div>
                                 </div>
@@ -216,7 +212,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="brides_maid_2"
                                             value="<?php echo htmlspecialchars($row['brides_maid_2']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput"> Brides Maid 2</label>
                                     </div>
                                 </div>
@@ -225,7 +221,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="brides_maid_3"
                                             value="<?php echo htmlspecialchars($row['brides_maid_3']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput"> Brides Maid 3</label>
                                     </div>
                                 </div>
@@ -234,7 +230,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="brides_maid_4"
                                             value="<?php echo htmlspecialchars($row['brides_maid_4']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput"> Brides Maid 4</label>
                                     </div>
                                 </div>
@@ -243,7 +239,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="brides_maid_5"
                                             value="<?php echo htmlspecialchars($row['brides_maid_5']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput"> Brides Maid 5</label>
                                     </div>
                                 </div>
@@ -252,7 +248,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="brides_maid_6"
                                             value="<?php echo htmlspecialchars($row['brides_maid_6']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput"> Brides Maid 6</label>
                                     </div>
                                 </div>
@@ -261,7 +257,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="brides_maid_7"
                                             value="<?php echo htmlspecialchars($row['brides_maid_7']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput"> Brides Maid 7</label>
                                     </div>
                                 </div>
@@ -270,7 +266,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="brides_maid_8"
                                             value="<?php echo htmlspecialchars($row['brides_maid_8']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput"> Brides Maid 8</label>
                                     </div>
                                 </div>
@@ -282,7 +278,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="grooms_men_1"
                                             value="<?php echo htmlspecialchars($row['grooms_men_1']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Grooms Men 1</label>
                                     </div>
                                 </div>
@@ -291,7 +287,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="grooms_men_2"
                                             value="<?php echo htmlspecialchars($row['grooms_men_2']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Grooms Men 2</label>
                                     </div>
                                 </div>
@@ -300,7 +296,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="grooms_men_3"
                                             value="<?php echo htmlspecialchars($row['grooms_men_3']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Grooms Men 3</label>
                                     </div>
                                 </div>
@@ -309,7 +305,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="grooms_men_4"
                                             value="<?php echo htmlspecialchars($row['grooms_men_4']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Grooms Men 4</label>
                                     </div>
                                 </div>
@@ -318,7 +314,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="grooms_men_5"
                                             value="<?php echo htmlspecialchars($row['grooms_men_5']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Grooms Men 5</label>
                                     </div>
                                 </div>
@@ -327,7 +323,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="grooms_men_6"
                                             value="<?php echo htmlspecialchars($row['grooms_men_6']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Grooms Men 6</label>
                                     </div>
                                 </div>
@@ -336,7 +332,7 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="grooms_men_7"
                                             value="<?php echo htmlspecialchars($row['grooms_men_7']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Grooms Men 7</label>
                                     </div>
                                 </div>
@@ -345,25 +341,11 @@
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="floatingInput" name="grooms_men_8"
                                             value="<?php echo htmlspecialchars($row['grooms_men_8']); ?>"
-                                            placeholder="name@example.com" required disabled>
+                                            placeholder="name@example.com" required>
                                         <label for="floatingInput">Grooms Men 8</label>
                                     </div>
                                 </div>
 
-                                
-
-                                <?php
-                                // Assuming $status holds the status of the item
-                                $status = $_GET['status'];
-                                if ($status == "pending") {
-                                ?>
-                                    <div class="col-12 text-center d-flex justify-content-end">
-                                        <a href="functions/approved.php?id=<?php echo $id; ?>" type="submit" class="btn btn-primary px-5 py-3 rounded-pill m-2">Approved</a>
-                                        <a href="functions/denied.php?id=<?php echo $id; ?>" type="submit" class="btn btn-primary px-5 py-3 rounded-pill m-2">Cancel</a>
-                                    </div>
-                                <?php
-                                }
-                                ?>
 
                                 <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($row['event_id']); ?>">
                                 <input type="hidden" name="event_type"
@@ -380,18 +362,236 @@
 
 
 
-                    <?php endwhile; ?>
+            </div>
+        </div>
+       
+        <?php
+        if ($package_id > 0) {
+            $query_id = $package_id;
+            
+            ?>
+            <div class="col-12">
+            <div class="card" style="background-color: #FFFFFFFF;">
+                <div class="card-body">
+                    <?php
+                    $sql = "SELECT ot.event_name, e.supplier_location, s.business_name, e.supplier_venue, e.participants, e.price, e.theme, e.theme_photo, ot.event_name, e.event_package_name, e.event_id 
+                    FROM events AS e 
+                    INNER JOIN event_types AS ot ON ot.event_type_id = e.event_type
+                    INNER JOIN supplier AS s ON s.supplier_id = e.supplier_venue
+                    WHERE e.event_id = '$query_id'";
+
+                    $result = mysqli_query($conn, $sql);
+
+                    $disable_button = mysqli_num_rows($result) === 0;
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $participants = $row['participants'];
+                            $price = $row['price'];
+                            $event_package_name = $row['event_package_name'];
+                            $event_id = $row['event_id'];
+                            $theme = $row['theme'];
+                            $supplier_venue = $row['supplier_venue'];
+                            $business_name = $row['business_name'];
+                            $supplier_location = $row['supplier_location'];
+                            $event_name = $row['event_name'];
+                            $theme_photo = $row['theme_photo'];
+                            ?>
+
+                            <div class="row g-4 form">
+
+
+                                <center>
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="overflow-hidden rounded" style="height: 300px;">
+                                            <img src="../uploads/products/<?= $theme_photo ?>"
+                                                class="img-fluid w-100 h-100 object-cover" alt="">
+                                        </div>
+                                    </div>
+                                </center>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_package_name"
+                                            name="event_package_name" disabled value="<?php echo $event_package_name; ?>"
+                                            placeholder="Full Name" required>
+                                        <label for="event_package_name">Package Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_name" name="event_name" disabled
+                                            value="<?php echo $event_name; ?>" placeholder="Full Name" required>
+                                        <label for="event_name">Event Type</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="theme" name="theme" disabled
+                                            value="<?php echo $theme; ?>" placeholder="Full Name" required>
+                                        <label for="theme">Theme</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="participants" name="participants" disabled
+                                            value="<?php echo $participants; ?>" placeholder="Full Name" required>
+                                        <label for="participants">Participants</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="price" name="price" disabled
+                                            value="<?php echo $price; ?>" placeholder="Full Name" required>
+                                        <label for="price">Price</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_name" name="event_name" disabled
+                                            value="<?php echo $event_name; ?>" placeholder="Full Name" required>
+                                        <label for="event_name">Event Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="supplier_location" name="supplier_location"
+                                            disabled value="<?php echo $supplier_location; ?>" placeholder="Full Name" required>
+                                        <label for="supplier_location">Location</label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <?php
+
+                        }
+                    } else {
+                        echo 'No events found.';
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+
+            <?php 
+        } else {
+            $query_id = $event_id;
+
+            ?>
+            <div class="col-12">
+            <div class="card" style="background-color: #FFFFFFFF;">
+                <div class="card-body">
+                    <?php
+                    $sql = "SELECT cce.participants, cce.budget, cce.event_package_name, cce.theme, cce.supplier_venue, cce.reference_photo, cce.supplier_location, s.business_name, et.event_name
+                    FROM client_customized_event AS cce
+                    INNER JOIN event_types AS et ON et.event_type_id = cce.event_type
+                    INNER JOIN supplier AS s ON s.supplier_id = cce.supplier_venue
+                    WHERE cce.id = '$query_id'";
+
+                    $result = mysqli_query($conn, $sql);
+
+                    $disable_button = mysqli_num_rows($result) === 0;
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $participants = $row['participants'];
+                            $price = $row['budget'];
+                            $event_package_name = $row['event_package_name'];
+                            $theme = $row['theme'];
+                            $supplier_venue = $row['supplier_venue'];
+                            $business_name = $row['business_name'];
+                            $supplier_location = $row['supplier_location'];
+                            $theme_photo = $row['reference_photo'];
+                            $event_name = $row['event_name'];
+                            ?>
+
+                            <div class="row g-4 form">
+
+
+                                <center>
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="overflow-hidden rounded" style="height: 300px;">
+                                            <img src="../uploads/client/<?php echo $theme_photo; ?>"
+                                                class="img-fluid w-100 h-100 object-cover" alt="">
+                                        </div>
+                                    </div>
+                                </center>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_package_name"
+                                            name="event_package_name" disabled value="<?php echo $event_package_name; ?>"
+                                            placeholder="Full Name" required>
+                                        <label for="event_package_name">Package Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_name" name="event_name" disabled
+                                            value="<?php echo $event_name; ?>" placeholder="Full Name" required>
+                                        <label for="event_name">Event Type</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="theme" name="theme" disabled
+                                            value="<?php echo $theme; ?>" placeholder="Full Name" required>
+                                        <label for="theme">Theme</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="participants" name="participants" disabled
+                                            value="<?php echo $participants; ?>" placeholder="Full Name" required>
+                                        <label for="participants">Participants</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="price" name="price" disabled
+                                            value="<?php echo $price; ?>" placeholder="Full Name" required>
+                                        <label for="price">Price</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="event_name" name="event_name" disabled
+                                            value="<?php echo $business_name; ?>" placeholder="Full Name" required>
+                                        <label for="event_name">Event Venue</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="supplier_location" name="supplier_location"
+                                            disabled value="<?php echo $supplier_location; ?>" placeholder="Full Name" required>
+                                        <label for="supplier_location">Location</label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <?php
+
+                        }
+                    } else {
+                        echo 'No events found.';
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+            <?php
+        }
+        ?>
+
+<?php endwhile; ?>
                 <?php else: ?>
 
                     <h1 class="display-5 mb-5">No data available</h1>
 
                 <?php endif; ?>
-
-            </div>
-        </div>
-        <div class="col-1">
-            <div class="img-fluid h-100 w-100 rounded-end"
-                style="object-fit: cover; opacity: 0.7; background-color: #d4a762;"></div>
-        </div>
     </div>
 </div>
