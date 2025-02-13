@@ -61,13 +61,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['uploaded_picture']))
                     echo "Error moving the uploaded file.";
                 }
             } else {
-                echo "Invalid file type or file is too large.";
+                echo   "Invalid file type or file is too large.";
             }
         } else {
-            echo "Error uploading file: " . $file_error;
+            echo   "Error uploading file: " . $file_error;
         }
     }
 } else {
-    echo "No file uploaded.";
+    echo   "No file uploaded.";
 }
 ?>

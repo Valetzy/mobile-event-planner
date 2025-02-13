@@ -210,8 +210,8 @@
                     <?php
                     $sql = "SELECT ot.event_name, e.supplier_location, s.business_name, e.supplier_venue, e.participants, e.price, e.theme, e.theme_photo, ot.event_name, e.event_package_name, e.event_id 
                     FROM events AS e 
-                    INNER JOIN event_types AS ot ON ot.event_type_id = e.event_type
-                    INNER JOIN supplier AS s ON s.supplier_id = e.supplier_venue
+                    LEFT JOIN event_types AS ot ON ot.event_type_id = e.event_type
+                    LEFT JOIN supplier AS s ON s.supplier_id = e.supplier_venue
                     WHERE e.event_id = '$query_id'";
 
                     $result = mysqli_query($conn, $sql);

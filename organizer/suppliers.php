@@ -136,7 +136,7 @@ if (!isset($_SESSION['email'])) {
                                                                     <div class="col-sm-12 col-12">
                                                                         <div class="mb-3">
                                                                             <label class="form-label">Photo<span
-                                                                                    class="text-red">*</span></label>
+                                                                                    class="text-red">*</span> </label>
                                                                             <input type="file" class="form-control"
                                                                                 name="theme_photo" required
                                                                                 placeholder="Enter Product Name">

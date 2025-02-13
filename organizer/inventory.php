@@ -66,6 +66,7 @@ if (!isset($_SESSION['email'])) {
                                     $result = $stmt->get_result();
 
                                     if ($result->num_rows > 0) {
+                                        $count = 1;
                                         echo '
                                         <table id="example2" class="table table-bordered table-hover">
                                             <thead>
@@ -82,7 +83,7 @@ if (!isset($_SESSION['email'])) {
                                                                 while ($row = $result->fetch_assoc()) {
                                                                     echo '
                                             <tr class="align-middle">
-                                                <td>' . htmlspecialchars($row['orga_products_id']) . '</td>
+                                                <td>' . $count . '</td>
                                                 <td>' . htmlspecialchars($row['product_name']) . '</td>
                                                 <td>' . htmlspecialchars($row['description']) . '</td>
                                                 <td><img src="../images/'.$row['product_photo'].'" alt="Product Image" style="width: 100px; height: 100px; object-fit: cover;"></td>
@@ -91,6 +92,7 @@ if (!isset($_SESSION['email'])) {
                                                     <button class="btn btn-danger delete-btn" data-id="'.$row['orga_products_id'] .'">Delete</button>
                                                 </td>
                                             </tr>';
+                                            $count++;
                                                                 }
 
                                             echo '

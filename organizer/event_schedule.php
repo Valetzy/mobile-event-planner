@@ -32,6 +32,7 @@ include '../connection/conn.php';
                     eventClick: function (info) {
                         var id = info.event.extendedProps.id;
                         var title = info.event.title;
+                        var event_type_id = info.event.extendedProps.event_type_id;
                         var start = info.event.start.toISOString().split('T')[0];
                         var end = info.event.end ? info.event.end.toISOString().split('T')[0] : start;
                         var fullName = info.event.extendedProps.full_name || 'Unknown Organizer';
@@ -53,6 +54,7 @@ include '../connection/conn.php';
                     <h2>${fullName}</h2>
                     <p><strong>Start:</strong> ${start}</p>
                     <p><strong>End:</strong> ${end}</p>
+                    <a href='view_request.php?id=${id}&eventType=${title}' class='btn btn-info'>View Details</a>
                     <button class='btn btn-success' data-bs-toggle='modal' data-bs-target='#largeModal${id}' style="${buttonStyle}">Mark as Done</button>
                 </div>
 

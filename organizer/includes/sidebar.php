@@ -61,12 +61,12 @@
      </a>
      <ul class="nav nav-treeview">
       <li class="nav-item"> <a href="event_schedule.php" class="nav-link"> <i
-         class="nav-icon bi bi-box"></i>
-        <p>Events To Do</p>
+         class="nav-icon bi bi-calendar"></i>
+        <p>Schedule</p>
        </a> </li>
        <li class="nav-item"> <a href="event_finished.php" class="nav-link"> <i
-         class="nav-icon bi bi-box"></i>
-        <p>Event Finished</p>
+         class="nav-icon bi bi-check"></i>
+        <p>Completed</p>
        </a> </li>
      </ul>
     </li>

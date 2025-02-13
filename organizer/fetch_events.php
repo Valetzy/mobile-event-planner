@@ -15,6 +15,7 @@ $sql = "SELECT
             u.full_name,
             u.profile_pic,
             crf.id,
+            et.event_type_id,
             crf.date_start AS start,
             crf.date_end AS end,
             et.event_name AS title
@@ -44,10 +45,11 @@ while ($row = $result->fetch_assoc()) {
         'end' => $row['end'],
         'extendedProps' => [
             'id' => $row['id'],
-            'full_name' => $row['full_name'],  // Assuming you have an organizer name column
+            'event_type_id' => $row['event_type_id'], // Ensure this is included
+            'full_name' => $row['full_name'],
             'profile_pic' => $row['profile_pic']
         ]
-    ];
+    ];    
 }
 
 

@@ -84,7 +84,7 @@ include '../connection/conn.php';
                                 <div class="card-body text-center">
                                     <!-- Profile Image -->
                                     <div class="mb-4">
-                                        <img class="user-image shadow rounded-circle" width="200" height="200"
+                                        <img class="user-image shadow rounded-circle " width="200" height="200"
                                             style="object-fit: cover;"
                                             src="../uploads/<?php echo htmlspecialchars($supplier['profile_pic'] ?? 'default.jpg'); ?>"
                                             alt="Profile Picture">

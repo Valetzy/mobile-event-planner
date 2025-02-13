@@ -239,6 +239,8 @@ function displayEventCards($conn)
             $price = htmlspecialchars($row['price']);
             $participants = htmlspecialchars($row['participants']);
             $event_package_name = htmlspecialchars($row['event_package_name']);
+            $location = htmlspecialchars($row['supplier_location']);
+            $venue = htmlspecialchars($row['event_package_name']);
 
             // Generate the card HTML
             echo '<div class="col-lg-3 col-6 mb-3">
@@ -296,7 +298,9 @@ function displayEventCards($conn)
                                     <h3 class="text-center"> ' . $event_type . '</h3>
                             <p class="text-center"> Theme: ' . $title . '</p>
                             <p class="text-center"> Price: ₱' . $price . '</p>
-                            <p class="text-center"> Participants: ' . $participants . '</p>';
+                            <p class="text-center"> Participants: ' . $participants . '</p>
+                            <p class="text-center"> Venue: ' . $price . '</p>
+                            <p class="text-center"> Location: ' . $location . '</p>';
                                     
 
                 while ($product_row = $products_result->fetch_assoc()) {

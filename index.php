@@ -2,10 +2,21 @@
 session_start();
 
 // Destroy the session if the user navigates back to login.php after logging in
-if (isset($_SESSION['email'])) {
-    session_destroy();
-    header("Location: index.php"); // Reload login page to enforce session reset
+if (isset($_SESSION['email']) && $_SESSION['user_type'] ) {
+  if($_SESSION['user_type'] == 'organizer'){
+    header("Location: organizer/index.php"); // Reload login page to enforce session reset
     exit();
+  } elseif ($_SESSION['user_type'] == 'client'){
+    header("Location: client/index.php"); // Reload login page to enforce session reset
+    exit();
+  }elseif ($_SESSION['user_type'] == 'admin'){
+    header("Location: admin/index.php"); // Reload login page to enforce session reset
+    exit();
+  }elseif ($_SESSION['user_type'] == 'supplier'){
+    header("Location: supplier/dashboard.php"); // Reload login page to enforce session reset
+    exit();
+  }
+    
 }
 ?>
 <!DOCTYPE html>

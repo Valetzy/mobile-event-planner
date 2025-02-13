@@ -71,8 +71,8 @@ include '../connection/conn.php';
                                         LEFT JOIN birthday_client_form AS bcf ON crf.client_form_id = bcf.id
                                         LEFT JOIN wedding_form AS wf ON crf.client_form_id = wf.id
                                         LEFT JOIN christening_form AS cf ON crf.client_form_id = cf.id
-                                        INNER JOIN event_types AS et ON crf.event_type = et.event_type_id
-                                        INNER JOIN users AS u ON crf.client_id = u.user_id 
+                                        LEFT JOIN event_types AS et ON crf.event_type = et.event_type_id
+                                        LEFT JOIN users AS u ON crf.client_id = u.user_id 
                                         WHERE crf.status = 'done' AND crf.organizer_id = '$organizer_id' 
                                         AND (bcf.id IS NOT NULL OR wf.id IS NOT NULL OR cf.id IS NOT NULL) ORDER BY crf.date_created ASC ";
 
@@ -100,6 +100,7 @@ include '../connection/conn.php';
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $counter = 1;
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             $profile_image = $row['profile_pic']; // Replace with actual logic
                                             $event_type = $row['event_name'];
@@ -107,7 +108,7 @@ include '../connection/conn.php';
                                            
                                             echo "
                                                     <tr>
-                                                        <td>{$row['id']}</td>
+                                                        <td>{$counter}</td>
                                                         <td><img  style='width: 200px' src='{$profile_image}' alt='photo'></td>
                                                         <td>{$row['full_name']}</td>
                                                         <td>{$event_type}</td>
@@ -118,6 +119,7 @@ include '../connection/conn.php';
                                                         
                                                     </tr>
                                                 ";
+                                            $counter++;
                                         }
                                         ?>
                                     </tbody>
